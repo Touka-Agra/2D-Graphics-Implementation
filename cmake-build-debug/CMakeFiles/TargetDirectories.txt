@@ -1,0 +1,3 @@
+K:/e/3.2/Graphics/Assignments/Project/cmake-build-debug/CMakeFiles/Project.dir
+K:/e/3.2/Graphics/Assignments/Project/cmake-build-debug/CMakeFiles/edit_cache.dir
+K:/e/3.2/Graphics/Assignments/Project/cmake-build-debug/CMakeFiles/rebuild_cache.dir
