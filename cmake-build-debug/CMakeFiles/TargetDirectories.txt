@@ -1,3 +1,0 @@
-C:/Users/Lenovo/Desktop/FCAI/third level/second term/computer graphics/2D-Graphics-Implementation/cmake-build-debug/CMakeFiles/Project.dir
-C:/Users/Lenovo/Desktop/FCAI/third level/second term/computer graphics/2D-Graphics-Implementation/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Lenovo/Desktop/FCAI/third level/second term/computer graphics/2D-Graphics-Implementation/cmake-build-debug/CMakeFiles/rebuild_cache.dir
