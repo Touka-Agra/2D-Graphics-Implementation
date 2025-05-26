@@ -65,7 +65,8 @@ build CMakeFiles/Project.dir/main.cpp.obj: CXX_COMPILER__Project_unscanned_Debug
 
 build Project.exe: CXX_EXECUTABLE_LINKER__Project_Debug CMakeFiles/Project.dir/main.cpp.obj
   FLAGS = -g
-  LINK_LIBRARIES = -lgdi32  -luser32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_FLAGS = -mwindows
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Project.dir
   POST_BUILD = cd .
   PRE_LINK = cd .

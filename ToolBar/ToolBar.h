@@ -19,7 +19,7 @@ void createToolBar(HWND hwnd) {
     // ============= Window Menu ==========
     HMENU windowMenu = CreatePopupMenu();
     AppendMenu(windowMenu, MF_STRING, ID_WINDOW_BGCOLOR, "Change Background Color");
-    AppendMenu(windowMenu, MF_STRING, ID_WINDOW_MOUSE, "Change Mouse Shape");
+    AppendMenu(windowMenu, MF_STRING, ID_WINDOW_MOUSE, "Change Mouse Paint");
 
     AppendMenu(hMenu, MF_POPUP, (UINT_PTR) windowMenu, "Window");
 

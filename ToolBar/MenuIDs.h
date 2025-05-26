@@ -8,6 +8,8 @@
 //======================= Shapes ==================
 //===== Line =====
 
+#include <map>
+
 #define ID_SHAPE_LINE_DDA            1101
 #define ID_SHAPE_LINE_MIDPOINT       1102
 #define ID_SHAPE_LINE_PARAM          1103
@@ -77,5 +79,48 @@
 
 #define ID_WINDOW_BGCOLOR            6001
 #define ID_WINDOW_MOUSE              6002
+
+extern std::map<int, int> mapOfNeedPoints = {
+        {ID_SHAPE_LINE_DDA,            2},
+        {ID_SHAPE_LINE_MIDPOINT,       2},
+        {ID_SHAPE_LINE_PARAM,          2},
+
+        {ID_SHAPE_CIRCLE_DIRECT,       2},
+        {ID_SHAPE_CIRCLE_POLAR,        2},
+        {ID_SHAPE_CIRCLE_IT_POLAR,     2},
+        {ID_SHAPE_CIRCLE_MIDPOINT,     2},
+        {ID_SHAPE_CIRCLE_MOD_MIDPOINT, 2},
+        {ID_SHAPE_CIRCLE_FILL_LINES,   2},
+        {ID_SHAPE_CIRCLE_FILL_CIRCLES, 2},
+
+        {ID_SHAPE_ELLIPSE_DIRECT,      2},
+        {ID_SHAPE_ELLIPSE_POLAR,       2},
+        {ID_SHAPE_ELLIPSE_MIDPOINT,    2},
+
+        {ID_SHAPE_SQUARE_DRAW,         0},
+        {ID_SHAPE_SQUARE_FILL_HERMITE, 0},
+
+        {ID_SHAPE_RECT_DRAW,           0},
+        {ID_SHAPE_RECT_FILL_BEZIER,    0},
+
+        {ID_CURVE_HERMITE,             0},
+        {ID_CURVE_BEZIER,              4},
+        {ID_CURVE_CARDINAL_SPLINE,     0},
+
+        {ID_FILL_CONVEX,               1},
+        {ID_FILL_NONCONVEX,            1},
+        {ID_FILL_RECURSIVE_FF,         1},
+        {ID_FILL_NONRECURSIVE_FF,      1},
+
+        {ID_CLIP_RECT_POINT,           0},
+        {ID_CLIP_RECT_LINE,            0},
+        {ID_CLIP_RECT_POLYGON,         0},
+
+        {ID_CLIP_SQUARE_POINT,         0},
+        {ID_CLIP_SQUARE_LINE,          0},
+
+        {ID_CLIP_CIRCLE_POINT,         0},
+        {ID_CLIP_CIRCLE_LINE,          0}
+};
 
 #endif //PROJECT_MENUIDS_H
