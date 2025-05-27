@@ -13,6 +13,8 @@ add_executable(Project main.cpp
         Classes/Point.h
         ToolBar/ColorPicker.h
         ToolBar/CursorChanger.h
+        Files/Cursors/cursor.cur
+
 )
 
 set_target_properties(Project PROPERTIES

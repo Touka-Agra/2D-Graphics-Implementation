@@ -138,42 +138,6 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
             cout << "Background color changed\n\n";
             break;
 
-            // --- Mouse ---
-        case ID_WINDOW_MOUSE_ARROW:
-            SetCursor(LoadCursor(NULL, IDC_ARROW));
-            cout << "Mouse cursor changed to Arrow\n\n";
-            break;
-
-        case ID_WINDOW_MOUSE_HAND:
-            SetCursor(LoadCursor(NULL, IDC_HAND));
-            cout << "Mouse cursor changed to Hand\n\n";
-            break;
-
-        case ID_WINDOW_MOUSE_CROSS:
-            SetCursor(LoadCursor(NULL, IDC_CROSS));
-            cout << "Mouse cursor changed to Cross\n\n";
-            break;
-
-        case ID_WINDOW_MOUSE_WAIT:
-            SetCursor(LoadCursor(NULL, IDC_WAIT));
-            cout << "Mouse cursor changed to Wait\n\n";
-            break;
-
-        case ID_WINDOW_MOUSE_IBEAM:
-            SetCursor(LoadCursor(NULL, IDC_IBEAM));
-            cout << "Mouse cursor changed to I-Beam\n\n";
-            break;
-
-        case ID_WINDOW_MOUSE_SIZEALL:
-            SetCursor(LoadCursor(NULL, IDC_SIZEALL));
-            cout << "Mouse cursor changed to SizeAll\n\n";
-            break;
-
-        case ID_WINDOW_MOUSE_CUSTOM:
-            //SetCursor(LoadCursorFromFile("cursor.cur"));
-            cout << "Mouse cursor changed to Custom\n\n";
-            break;
-
         default:
             cout << "Unknown user choice\n\n";
             break;

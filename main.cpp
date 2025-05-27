@@ -146,6 +146,7 @@ WindowProcedure(HWND
             }
             if(userChoice >= ID_WINDOW_MOUSE_ARROW && userChoice <= ID_WINDOW_MOUSE_CUSTOM){
                 chosenCursor = changeCursor(userChoice);
+                cout << "Mouse cursor changed\n\n";
             }
             else if (needPoints <= 0) {
                 hdc = GetDC(hwnd);
@@ -155,7 +156,9 @@ WindowProcedure(HWND
             break;
 
         case WM_SETCURSOR:
-            SetCursor(chosenCursor);
+            if(chosenCursor!=NULL){
+                SetCursor(chosenCursor);
+            }
             break;
 
         default:
