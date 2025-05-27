@@ -11,6 +11,7 @@
 #include "ToolBar/ToolBar.h"
 #include "ToolBar/MenuIDs.h"
 #include "ToolBar/Draw.h"
+#include "ToolBar/ColorPicker.h"
 #include "Classes/Point.h"
 
 using namespace std;
@@ -91,6 +92,8 @@ vector<Point> points;
 int userChoice;
 int needPoints;
 
+COLORREF choosenColor = RGB(255, 0, 0);
+
 LRESULT CALLBACK
 WindowProcedure(HWND
                 hwnd,
@@ -106,16 +109,20 @@ WindowProcedure(HWND
             if (userChoice != NULL) {
                 Point point = Point(x, y);
                 points.push_back(point);
+
+
+                if (points.size() == needPoints) {
+                    std::cout << "Draw function called with " << points.size() << " points\n";
+
+                    hdc = GetDC(hwnd);
+                    draw(hdc, userChoice, points, choosenColor);
+                    ReleaseDC(hwnd, hdc);
+
+                    points.clear();
+                }
             }
-
-            if (points.size() == needPoints) {
-                std::cout << "Draw function called with " << points.size() << " points\n";
-
-                hdc = GetDC(hwnd);
-                draw(hdc, userChoice, points);
-                ReleaseDC(hwnd, hdc);
-
-                points.clear();
+            else{
+                std::cout << "Unknown User Choice\n\n";
             }
             break;
         }
@@ -131,11 +138,14 @@ WindowProcedure(HWND
         case WM_COMMAND:
             points.clear();
             userChoice = LOWORD(wParam);
-            cout << "User Choice: "<< userChoice << endl;
+            cout << "User Choice: " << userChoice << endl;
             needPoints = mapOfNeedPoints[userChoice];
+            if (needPoints != -1) {
+                choosenColor = pickColor(hwnd, choosenColor);
+            }
             if (needPoints == 0) {
                 hdc = GetDC(hwnd);
-                draw(hdc, userChoice, points);
+                draw(hdc, userChoice, points, choosenColor);
                 ReleaseDC(hwnd, hdc);
             }
             break;

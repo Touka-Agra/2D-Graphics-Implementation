@@ -11,6 +11,7 @@ add_executable(Project main.cpp
         Classes/Paint.h
         Classes/Point.h
         Classes/Point.h
+        ToolBar/ColorPicker.h
 )
 
 set_target_properties(Project PROPERTIES

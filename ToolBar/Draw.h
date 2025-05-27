@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void draw(HDC hdc, int userChoice, vector<Point> points) {
+void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
     switch (userChoice) {
         // ===== Line =====
         case ID_SHAPE_LINE_DDA:
@@ -75,13 +75,7 @@ void draw(HDC hdc, int userChoice, vector<Point> points) {
             cout << "Hermite Curve has been drawn\n\n";
             break;
         case ID_CURVE_BEZIER: {
-            vector<COLORREF> colors = {
-                    RGB(0, 0, 255),
-                    RGB(255, 0, 0),
-                    RGB(255, 255, 0),
-                    RGB(0, 255, 0)
-            };
-            DrawBezier(hdc, points, colors);
+            DrawBezier(hdc, points, color);
             cout << "Bezier Curve has been drawn\n\n";
             break;
         }
