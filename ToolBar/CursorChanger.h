@@ -20,6 +20,11 @@ void customCursorMenu() {
     cout << "4: Tom\n";
     cout << "5: Smile\n";
     cout << "6: Just a Girl\n";
+    cout << "7: Barca\n";
+    cout << "8: Gojo\n";
+    cout << "9: Pusheen\n";
+    cout << "10: Titan\n";
+    cout << "11: Dazai\n";
     cout << "Choose a Custom Cursor:\n";
 }
 
@@ -35,6 +40,11 @@ HCURSOR changeCursor(int userChoice) {
             "Files/Cursors/tom.cur",
             "Files/Cursors/smile.cur",
             "Files/Cursors/justAGirl.cur",
+            "Files/Cursors/barca.cur",
+            "Files/Cursors/gojo.cur",
+            "Files/Cursors/pusheen.cur",
+            "Files/Cursors/titanHand.cur",
+            "Files/Cursors/dazaiHand.cur"
     };
 
     if (userChoice != ID_WINDOW_MOUSE_CUSTOM) {
