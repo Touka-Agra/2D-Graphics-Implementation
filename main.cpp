@@ -12,6 +12,7 @@
 #include "ToolBar/MenuIDs.h"
 #include "ToolBar/Draw.h"
 #include "ToolBar/ColorPicker.h"
+#include "ToolBar/CursorChanger.h"
 #include "Classes/Point.h"
 
 using namespace std;
@@ -92,7 +93,8 @@ vector<Point> points;
 int userChoice;
 int needPoints;
 
-COLORREF choosenColor = RGB(255, 0, 0);
+COLORREF chosenColor = RGB(255, 0, 0);
+HCURSOR chosenCursor = LoadCursor(NULL, IDC_ARROW);
 
 LRESULT CALLBACK
 WindowProcedure(HWND
@@ -110,12 +112,11 @@ WindowProcedure(HWND
                 Point point = Point(x, y);
                 points.push_back(point);
 
-
                 if (points.size() == needPoints) {
                     std::cout << "Draw function called with " << points.size() << " points\n";
 
                     hdc = GetDC(hwnd);
-                    draw(hdc, userChoice, points, choosenColor);
+                    draw(hdc, userChoice, points, chosenColor);
                     ReleaseDC(hwnd, hdc);
 
                     points.clear();
@@ -141,13 +142,20 @@ WindowProcedure(HWND
             cout << "User Choice: " << userChoice << endl;
             needPoints = mapOfNeedPoints[userChoice];
             if (needPoints != -1) {
-                choosenColor = pickColor(hwnd, choosenColor);
+                chosenColor = pickColor(hwnd, chosenColor);
             }
-            if (needPoints == 0) {
+            if(userChoice >= ID_WINDOW_MOUSE_ARROW && userChoice <= ID_WINDOW_MOUSE_CUSTOM){
+                chosenCursor = changeCursor(userChoice);
+            }
+            else if (needPoints <= 0) {
                 hdc = GetDC(hwnd);
-                draw(hdc, userChoice, points, choosenColor);
+                draw(hdc, userChoice, points, chosenColor);
                 ReleaseDC(hwnd, hdc);
             }
+            break;
+
+        case WM_SETCURSOR:
+            SetCursor(chosenCursor);
             break;
 
         default:

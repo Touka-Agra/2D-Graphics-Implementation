@@ -78,7 +78,16 @@
 //======================== Window ======================
 
 #define ID_WINDOW_BGCOLOR            6001
-#define ID_WINDOW_MOUSE              6002
+
+//===== Mouse =====
+//#define ID_WINDOW_MOUSE             6100
+#define ID_WINDOW_MOUSE_ARROW         6101
+#define ID_WINDOW_MOUSE_HAND          6102
+#define ID_WINDOW_MOUSE_CROSS         6103
+#define ID_WINDOW_MOUSE_WAIT          6104
+#define ID_WINDOW_MOUSE_IBEAM         6105
+#define ID_WINDOW_MOUSE_SIZEALL       6106
+#define ID_WINDOW_MOUSE_CUSTOM        6107
 
 extern std::map<int, int> mapOfNeedPoints = {
         {ID_SHAPE_LINE_DDA,            2},
@@ -120,7 +129,15 @@ extern std::map<int, int> mapOfNeedPoints = {
         {ID_CLIP_SQUARE_LINE,          0},
 
         {ID_CLIP_CIRCLE_POINT,         0},
-        {ID_CLIP_CIRCLE_LINE,          0}
+        {ID_CLIP_CIRCLE_LINE,          0},
+
+        {ID_WINDOW_MOUSE_ARROW,        -1},
+        {ID_WINDOW_MOUSE_HAND,         -1},
+        {ID_WINDOW_MOUSE_CROSS,        -1},
+        {ID_WINDOW_MOUSE_WAIT,         -1},
+        {ID_WINDOW_MOUSE_IBEAM,        -1},
+        {ID_WINDOW_MOUSE_SIZEALL,      -1},
+        {ID_WINDOW_MOUSE_CUSTOM,       -1}
 };
 
 #endif //PROJECT_MENUIDS_H

@@ -19,8 +19,19 @@ void createToolBar(HWND hwnd) {
     // ============= Window Menu ==========
     HMENU windowMenu = CreatePopupMenu();
     AppendMenu(windowMenu, MF_STRING, ID_WINDOW_BGCOLOR, "Change Background Color");
-    AppendMenu(windowMenu, MF_STRING, ID_WINDOW_MOUSE, "Change Mouse Paint");
 
+    HMENU mouseMenu = CreatePopupMenu();
+    AppendMenu(mouseMenu, MF_STRING, ID_WINDOW_MOUSE_ARROW, "Mouse Cursor - Arrow");
+    AppendMenu(mouseMenu, MF_STRING, ID_WINDOW_MOUSE_HAND, "Mouse Cursor - Hand");
+    AppendMenu(mouseMenu, MF_STRING, ID_WINDOW_MOUSE_CROSS, "Mouse Cursor - Cross");
+    AppendMenu(mouseMenu, MF_STRING, ID_WINDOW_MOUSE_WAIT, "Mouse Cursor - Wait");
+    AppendMenu(mouseMenu, MF_STRING, ID_WINDOW_MOUSE_IBEAM, "Mouse Cursor - IBeam");
+    AppendMenu(mouseMenu, MF_STRING, ID_WINDOW_MOUSE_SIZEALL, "Mouse Cursor - SizeAll");
+    AppendMenu(mouseMenu, MF_STRING, ID_WINDOW_MOUSE_CUSTOM, "Mouse Cursor - Custom");
+
+    AppendMenu(windowMenu, MF_POPUP, (UINT_PTR) mouseMenu, "Mouse Cursor");
+
+    //
     AppendMenu(hMenu, MF_POPUP, (UINT_PTR) windowMenu, "Window");
 
     // ============= Shapes Menu ==========
