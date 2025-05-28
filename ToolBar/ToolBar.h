@@ -117,7 +117,7 @@ void createToolBar(HWND hwnd) {
     HMENU rectangleClipMenu = CreatePopupMenu();
     AppendMenu(rectangleClipMenu, MF_STRING, ID_CLIP_RECT_POINT, "Rectangle Clipping - Point");
     AppendMenu(rectangleClipMenu, MF_STRING, ID_CLIP_RECT_LINE, "Rectangle Clipping - Line");
-    AppendMenu(rectangleClipMenu, MF_STRING, ID_CLIP_RECT_POLYGON, "Rectangle Clipping - POLYGON");
+    AppendMenu(rectangleClipMenu, MF_STRING, ID_CLIP_RECT_POLYGON, "Rectangle Clipping - Polygon");
 
     AppendMenu(clipMenu, MF_POPUP, (UINT_PTR) rectangleClipMenu, "Rectangle Clipping");
 

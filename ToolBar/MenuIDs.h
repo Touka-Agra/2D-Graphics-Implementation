@@ -89,6 +89,7 @@
 #define ID_WINDOW_MOUSE_SIZEALL       6106
 #define ID_WINDOW_MOUSE_CUSTOM        6107
 
+
 extern std::map<int, int> mapOfNeedPoints = {
         {ID_SHAPE_LINE_DDA,            2},
         {ID_SHAPE_LINE_MIDPOINT,       2},
@@ -121,12 +122,12 @@ extern std::map<int, int> mapOfNeedPoints = {
         {ID_FILL_RECURSIVE_FF,         1},
         {ID_FILL_NONRECURSIVE_FF,      1},
 
-        {ID_CLIP_RECT_POINT,           0},
-        {ID_CLIP_RECT_LINE,            0},
+        {ID_CLIP_RECT_POINT,           1},
+        {ID_CLIP_RECT_LINE,            2},
         {ID_CLIP_RECT_POLYGON,         0},
 
-        {ID_CLIP_SQUARE_POINT,         0},
-        {ID_CLIP_SQUARE_LINE,          0},
+        {ID_CLIP_SQUARE_POINT,         1},
+        {ID_CLIP_SQUARE_LINE,          2},
 
         {ID_CLIP_CIRCLE_POINT,         0},
         {ID_CLIP_CIRCLE_LINE,          0},

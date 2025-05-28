@@ -4,6 +4,11 @@
 #include "MenuIDs.h"
 #include "../Classes/Point.h"
 #include "../Curves/Bezier.h"
+#include "../Clipping/Rectangle&Square/PointClipping.h"
+#include "../Clipping/Rectangle&Square/LineClipping.h"
+#include "../Clipping/Rectangle&Square/PolygonClipping.h"
+
+
 
 using namespace std;
 
@@ -14,6 +19,7 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
             cout << "DDA Line has been drawn\n\n";
             break;
         case ID_SHAPE_LINE_MIDPOINT:
+            drawBresenhamLine(hdc,points,color);
             cout << "Midpoint Line has been drawn\n\n";
             break;
         case ID_SHAPE_LINE_PARAM:
@@ -97,30 +103,6 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
             cout << "Non-Recursive Flood Fill applied\n\n";
             break;
 
-            // ===== Clipping =====
-        case ID_CLIP_RECT_POINT:
-            cout << "Point clipped in rectangle\n\n";
-            break;
-        case ID_CLIP_RECT_LINE:
-            cout << "Line clipped in rectangle\n\n";
-            break;
-        case ID_CLIP_RECT_POLYGON:
-            cout << "Polygon clipped in rectangle\n\n";
-            break;
-
-        case ID_CLIP_SQUARE_POINT:
-            cout << "Point clipped in square\n\n";
-            break;
-        case ID_CLIP_SQUARE_LINE:
-            cout << "Line clipped in square\n\n";
-            break;
-
-        case ID_CLIP_CIRCLE_POINT:
-            cout << "Point clipped in circle\n\n";
-            break;
-        case ID_CLIP_CIRCLE_LINE:
-            cout << "Line clipped in circle\n\n";
-            break;
 
             // ===== Actions =====
         case ID_ACTION_CLEAR:
@@ -141,5 +123,40 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
         default:
             cout << "Unknown user choice\n\n";
             break;
+    }
+}
+
+void clip(HDC hdc, int userChoice, vector<Point> points, vector<int>window, COLORREF color){
+    switch(userChoice){
+        // ===== Clipping =====
+        case ID_CLIP_RECT_POINT:
+            drawClippedPoint(hdc,points,window,color);
+            cout << "Point clipped in rectangle\n\n";
+            break;
+        case ID_CLIP_RECT_LINE:
+            drawClippedLine(hdc,points,window,color);
+            cout << "Line clipped in rectangle\n\n";
+            break;
+        case ID_CLIP_RECT_POLYGON:
+            drawClippedPolygon(hdc,points,window,color);
+            cout << "Polygon clipped in rectangle\n\n";
+            break;
+
+        case ID_CLIP_SQUARE_POINT:
+            drawClippedPoint(hdc,points,window,color);
+            cout << "Point clipped in square\n\n";
+            break;
+        case ID_CLIP_SQUARE_LINE:
+            drawClippedLine(hdc,points,window,color);
+            cout << "Line clipped in square\n\n";
+            break;
+
+        case ID_CLIP_CIRCLE_POINT:
+            cout << "Point clipped in circle\n\n";
+            break;
+        case ID_CLIP_CIRCLE_LINE:
+            cout << "Line clipped in circle\n\n";
+            break;
+
     }
 }

@@ -14,6 +14,10 @@ add_executable(Project main.cpp
         ToolBar/ColorPicker.h
         ToolBar/CursorChanger.h
         Files/Cursors/cursor.cur
+        Clipping/Rectangle&Square/PointClipping.h
+        Clipping/Rectangle&Square/LineClipping.h
+        Shapes/Line/BresenhamLine.h
+        Clipping/Rectangle&Square/PolygonClipping.h
 
 )
 
