@@ -4,6 +4,15 @@
 #include "MenuIDs.h"
 #include "../Classes/Point.h"
 #include "../Curves/Bezier.h"
+#include "../Shapes/Line/DDALine.h"
+#include "../Shapes/Line/InterpolatedLine.h"
+#include "../Shapes/Circle/CircleDirect.h"
+#include "../Shapes/Circle/CirclePolar.h"
+#include "../Shapes/Circle/CircleModifiedMidpoint.h"
+#include "../Shapes/Circle/CircleMidpoint.h"
+#include "../Shapes/Circle/CircleIterativePolar.h"
+#include "../Shapes/Circle/FillCircleWithLines.h"
+#include "../Shapes/Circle/FillCircleWithCircles.h"
 #include "../Clipping/Rectangle&Square/PointClipping.h"
 #include "../Clipping/Rectangle&Square/LineClipping.h"
 #include "../Clipping/Rectangle&Square/PolygonClipping.h"
@@ -16,6 +25,7 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
     switch (userChoice) {
         // ===== Line =====
         case ID_SHAPE_LINE_DDA:
+            drawDDALine(hdc, points, color);
             cout << "DDA Line has been drawn\n\n";
             break;
         case ID_SHAPE_LINE_MIDPOINT:
@@ -23,23 +33,29 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
             cout << "Midpoint Line has been drawn\n\n";
             break;
         case ID_SHAPE_LINE_PARAM:
+            drawParametricLine(hdc,points,color);
             cout << "Parametric Line has been drawn\n\n";
             break;
 
             // ===== Circle =====
         case ID_SHAPE_CIRCLE_DIRECT:
+            drawCircleDirect( hdc,  points,  color);
             cout << "Direct Circle has been drawn\n\n";
             break;
         case ID_SHAPE_CIRCLE_POLAR:
+            drawCirclePolar( hdc,  points, color);
             cout << "Polar Circle has been drawn\n\n";
             break;
         case ID_SHAPE_CIRCLE_IT_POLAR:
+            drawCircleIterativePolar( hdc,  points, color);
             cout << "Iterative Polar Circle has been drawn\n\n";
             break;
         case ID_SHAPE_CIRCLE_MIDPOINT:
+            drawCircleMidpoint( hdc,  points, color);
             cout << "Midpoint Circle has been drawn\n\n";
             break;
         case ID_SHAPE_CIRCLE_MOD_MIDPOINT:
+            drawCircleModifiedMidpoint(hdc,points,color);
             cout << "Modified Midpoint Circle has been drawn\n\n";
             break;
         case ID_SHAPE_CIRCLE_FILL_LINES:

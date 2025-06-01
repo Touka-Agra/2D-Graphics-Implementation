@@ -1,0 +1,18 @@
+#ifndef CIRCLEDIRECT_H
+#define CIRCLEDIRECT_H
+
+#include <windows.h>
+#include <cmath>
+#include <vector>
+    int y = R;
+    int R2 = R * R;
+    
+    while (x <= y) {
+       draw8Points(hdc,xc,yc,x,y,color);
+        
+        x++;
+        y = static_cast<int>(sqrt(R2 - x*x) + 0.5); // Round to nearest
+    }
+}
+
+#endif
