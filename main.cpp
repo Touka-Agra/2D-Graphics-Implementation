@@ -54,7 +54,7 @@ bool myloadFile(HDC hdc, string filename) {
 
         cout << type << " " << numOfPoints << color << endl;
 
-        draw(hdc, type, points, color,chosenBgColor);
+        draw(hdc, type, points, color);
     }
 
     cout << "All are loaded\n";
@@ -205,7 +205,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     if (userChoice >= ID_CLIP_RECT_POINT && userChoice <= ID_CLIP_CIRCLE_LINE) {
                         clip(hdc, userChoice, points, window, chosenColor);
                     } else {
-                        draw(hdc, userChoice, points, chosenColor, chosenBgColor);
+                        draw(hdc, userChoice, points, chosenColor);
                     }
 
                     ReleaseDC(hwnd, hdc);
@@ -342,7 +342,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                         cin >> numPts;
                         needPoints = numPts;
                     } else {
-                        draw(hdc, userChoice, points, chosenColor,chosenBgColor);
+                        draw(hdc, userChoice, points, chosenColor);
                     }
                     ReleaseDC(hwnd, hdc);
                 }

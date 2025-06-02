@@ -26,7 +26,7 @@ using namespace std;
 
 vector<Paint> paints = {};
 
-void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color, COLORREF bgColor) {
+void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
     bool updatePaints = true;
     switch (userChoice) {
         case ID_PIXEL:
@@ -44,29 +44,29 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color, COLORRE
             cout << "Midpoint Line has been drawn\n\n";
             break;
         case ID_SHAPE_LINE_PARAM:
-            drawParametricLine(hdc,points,color);
+            drawParametricLine(hdc, points, color);
             cout << "Parametric Line has been drawn\n\n";
             break;
 
             // ===== Circle =====
         case ID_SHAPE_CIRCLE_DIRECT:
-            drawCircleDirect( hdc,  points,  color);
+            drawCircleDirect(hdc, points, color);
             cout << "Direct Circle has been drawn\n\n";
             break;
         case ID_SHAPE_CIRCLE_POLAR:
-            drawCirclePolar( hdc,  points, color);
+            drawCirclePolar(hdc, points, color);
             cout << "Polar Circle has been drawn\n\n";
             break;
         case ID_SHAPE_CIRCLE_IT_POLAR:
-            drawCircleIterativePolar( hdc,  points, color);
+            drawCircleIterativePolar(hdc, points, color);
             cout << "Iterative Polar Circle has been drawn\n\n";
             break;
         case ID_SHAPE_CIRCLE_MIDPOINT:
-            drawCircleMidpoint( hdc,  points, color);
+            drawCircleMidpoint(hdc, points, color);
             cout << "Midpoint Circle has been drawn\n\n";
             break;
         case ID_SHAPE_CIRCLE_MOD_MIDPOINT:
-            drawCircleModifiedMidpoint(hdc,points,color);
+            drawCircleModifiedMidpoint(hdc, points, color);
             cout << "Modified Midpoint Circle has been drawn\n\n";
             break;
         case ID_SHAPE_CIRCLE_FILL_LINES:
@@ -125,13 +125,17 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color, COLORRE
             GeneralPolygonFill(hdc, points, color);
             cout << "Non-Convex Polygon has been filled\n\n";
             break;
-        case ID_FILL_RECURSIVE_FF:
+        case ID_FILL_RECURSIVE_FF: {
+            COLORREF bgColor = GetPixel(hdc, points[0].x, points[0].y);
             recursiveFloodFill(hdc, points[0].x, points[0].y, color, bgColor);
             cout << "Recursive Flood Fill applied\n\n";
+        }
             break;
-        case ID_FILL_NONRECURSIVE_FF:
+        case ID_FILL_NONRECURSIVE_FF: {
+            COLORREF bgColor = GetPixel(hdc, points[0].x, points[0].y);
             iterativeFloodFill(hdc, points[0].x, points[0].y, color, bgColor);
             cout << "Non-Recursive Flood Fill applied\n\n";
+        }
             break;
 
             // ===== Actions =====
@@ -163,7 +167,7 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color, COLORRE
             break;
     }
 
-    if(updatePaints){
+    if (updatePaints) {
         Paint paint = Paint(userChoice, points, color);
         paints.push_back(paint);
     }
@@ -176,7 +180,7 @@ void clip(HDC hdc, int userChoice, vector<Point> points, vector<int> window, COL
         case ID_CLIP_RECT_POINT: {
             bool drawPoint = drawClippedPoint(hdc, points, window, color);
             if (drawPoint) {
-                Paint paint = Paint(ID_PIXEL,points, color);
+                Paint paint = Paint(ID_PIXEL, points, color);
                 paints.push_back(paint);
             }
             cout << "Point clipped in rectangle\n\n";
