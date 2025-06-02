@@ -4,22 +4,23 @@
 #include <windows.h>
 #include <cmath>
 #include <vector>
+#include "../../Classes/Point.h"
 #include "eightPoint.h"
 
-void drawCircleDirect(HDC hdc, vector<Point> points, COLORREF color){
-    Point p1 = points[0];
-    Point p2 = points[1];
+void drawCircleDirect(HDC hdc, std::vector<Point> points, COLORREF color) {
+    if(points.size() < 2) return;
+    int xc = points[0].x;
+    int yc = points[0].y;
+    int dx = points[1].x - xc;
+    int dy = points[1].y - yc;
+    int R = static_cast<int>(sqrt(dx*dx + dy*dy));
 
-    double dx = p2.x - p1.x;
-    double dy = p2.y - p1.y;
-
-    double R = sqrt(dx*dx + dy*dy);
-
-    double x = 0, y = R;
-    double R2 = R * R;
-
+    int x = 0;
+    int y = R;
+    int R2 = R * R;
+    
     while (x <= y) {
-       draw8Points(hdc,(int)p1.x,(int)p2.y,x,y,color);
+       draw8Points(hdc,xc,yc,x,y,color);
         
         x++;
         y = static_cast<int>(sqrt(R2 - x*x) + 0.5); // Round to nearest
