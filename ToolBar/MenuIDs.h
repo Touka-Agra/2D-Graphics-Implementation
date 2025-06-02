@@ -100,8 +100,8 @@ extern std::map<int, int> mapOfNeedPoints = {
         {ID_SHAPE_CIRCLE_IT_POLAR,     2},
         {ID_SHAPE_CIRCLE_MIDPOINT,     2},
         {ID_SHAPE_CIRCLE_MOD_MIDPOINT, 2},
-        {ID_SHAPE_CIRCLE_FILL_LINES,   2},
-        {ID_SHAPE_CIRCLE_FILL_CIRCLES, 2},
+        {ID_SHAPE_CIRCLE_FILL_LINES,   3},
+        {ID_SHAPE_CIRCLE_FILL_CIRCLES, 3},
 
         {ID_SHAPE_ELLIPSE_DIRECT,      2},
         {ID_SHAPE_ELLIPSE_POLAR,       2},
