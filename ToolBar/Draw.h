@@ -59,9 +59,11 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
             cout << "Modified Midpoint Circle has been drawn\n\n";
             break;
         case ID_SHAPE_CIRCLE_FILL_LINES:
+            fillQuarterCircleWithLines(hdc, points, color);
             cout << "Filled Circle with Lines has been drawn\n\n";
             break;
         case ID_SHAPE_CIRCLE_FILL_CIRCLES:
+            fillQuarterCircleWithCircles( hdc,  points, color);
             cout << "Filled Circle with Circles has been drawn\n\b";
             break;
 
