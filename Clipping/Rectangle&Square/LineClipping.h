@@ -5,7 +5,6 @@
 #ifndef INC_2D_GRAPHICS_IMPLEMENTATION_LINECLIPPING_H
 #define INC_2D_GRAPHICS_IMPLEMENTATION_LINECLIPPING_H
 
-#endif //INC_2D_GRAPHICS_IMPLEMENTATION_LINECLIPPING_H
 
 
 #include <windows.h>
@@ -58,7 +57,7 @@ Point HIntersect(int yedge, Point &p1, Point &p2) {
 }
 
 ///////////////////////////////
-void drawClippedLine(HDC hdc, vector<Point>p, vector<int> window, COLORREF c) {
+Paint drawClippedLine(HDC hdc, vector<Point>p, vector<int> window, COLORREF c) {
     //cohen-sutherland
     int xleft = window[0]; int xright = window[1];
     int ytop = window[2]; int ybottom =window[3];
@@ -93,7 +92,13 @@ void drawClippedLine(HDC hdc, vector<Point>p, vector<int> window, COLORREF c) {
     p = {p1,p2};
     if (accept) {
         drawBresenhamLine(hdc, p, c);
+        Paint paint = Paint(ID_SHAPE_LINE_MIDPOINT, p, c);
+        return paint;
     }
+    return Paint(0,p,c);
 }
+
+#endif //INC_2D_GRAPHICS_IMPLEMENTATION_LINECLIPPING_H
+
 
 

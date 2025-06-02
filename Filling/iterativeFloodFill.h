@@ -1,3 +1,5 @@
+#ifndef iterativeFloodFill_H
+#define iterativeFloodFill_H
 #include <Windows.h>
 #include <stack>
 
@@ -5,6 +7,7 @@ using namespace std;
 
 void iterativeFloodFill(HDC hdc, int x, int y, COLORREF fillColor, COLORREF borderColor)
 {
+
     std::stack<std::pair<int, int>> stk;
     stk.push({x, y});
 
@@ -17,7 +20,7 @@ void iterativeFloodFill(HDC hdc, int x, int y, COLORREF fillColor, COLORREF bord
 
         COLORREF currentColor = GetPixel(hdc, currentX, currentY);
 
-        if (currentColor == fillColor || currentColor == borderColor)
+        if (currentColor == fillColor || currentColor != borderColor)
             continue;
 
         SetPixel(hdc, currentX, currentY, fillColor);
@@ -29,3 +32,5 @@ void iterativeFloodFill(HDC hdc, int x, int y, COLORREF fillColor, COLORREF bord
         stk.push({currentX, currentY - 1});
     }
 }
+
+#endif

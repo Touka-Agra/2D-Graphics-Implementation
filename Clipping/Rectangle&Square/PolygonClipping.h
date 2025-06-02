@@ -5,7 +5,6 @@
 #ifndef INC_2D_GRAPHICS_IMPLEMENTATION_POLYGONCLIPPING_H
 #define INC_2D_GRAPHICS_IMPLEMENTATION_POLYGONCLIPPING_H
 
-#endif //INC_2D_GRAPHICS_IMPLEMENTATION_POLYGONCLIPPING_H
 
 #include <windows.h>
 #include <cmath>
@@ -72,7 +71,7 @@ Point HIntersect(Point& v1, Point& v2, int yedge)
     return res;
 }
 
-void drawClippedPolygon(HDC hdc, vector<Point>p, vector<int>window, COLORREF c) {
+vector<Paint> drawClippedPolygon(HDC hdc, vector<Point>p, vector<int>window, COLORREF c) {
     int xleft = window[0];
     int xright = window[1];
     int ytop = window[2];
@@ -90,10 +89,18 @@ void drawClippedPolygon(HDC hdc, vector<Point>p, vector<int>window, COLORREF c) 
     vlist = ClipwEdge(vlist, ybottom, InBottom, HIntersect);
 
     // Drawing the clipped polygon
+    vector<Paint> polygon;
     Point v1 = vlist[vlist.size() - 1];
     for (int i = 0; i < (int)vlist.size(); ++i) {
         Point v2 = vlist[i];
         drawBresenhamLine(hdc, {{v1.x, v1.y}, {v2.x, v2.y}}, c);
+        Paint paint = Paint(ID_SHAPE_LINE_MIDPOINT, {{v1.x, v1.y}, {v2.x, v2.y}}, c);
+        polygon.push_back(paint);
         v1 = v2;
+
     }
+
+    return polygon;
 }
+
+#endif //INC_2D_GRAPHICS_IMPLEMENTATION_POLYGONCLIPPING_H

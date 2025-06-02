@@ -5,10 +5,13 @@
 #ifndef PROJECT_MENUIDS_H
 #define PROJECT_MENUIDS_H
 
-//======================= Shapes ==================
-//===== Line =====
 
 #include <map>
+
+#define ID_PIXEL                     1000
+
+//======================= Shapes ==================
+//===== Line =====
 
 #define ID_SHAPE_LINE_DDA            1101
 #define ID_SHAPE_LINE_MIDPOINT       1102
@@ -117,8 +120,8 @@ extern std::map<int, int> mapOfNeedPoints = {
         {ID_CURVE_BEZIER,              4},
         {ID_CURVE_CARDINAL_SPLINE,     0},
 
-        {ID_FILL_CONVEX,               1},
-        {ID_FILL_NONCONVEX,            1},
+        {ID_FILL_CONVEX,               0},
+        {ID_FILL_NONCONVEX,            0},
         {ID_FILL_RECURSIVE_FF,         1},
         {ID_FILL_NONRECURSIVE_FF,      1},
 
@@ -132,13 +135,19 @@ extern std::map<int, int> mapOfNeedPoints = {
         {ID_CLIP_CIRCLE_POINT,         0},
         {ID_CLIP_CIRCLE_LINE,          0},
 
-        {ID_WINDOW_MOUSE_ARROW,        -1},
-        {ID_WINDOW_MOUSE_HAND,         -1},
-        {ID_WINDOW_MOUSE_CROSS,        -1},
-        {ID_WINDOW_MOUSE_WAIT,         -1},
-        {ID_WINDOW_MOUSE_IBEAM,        -1},
-        {ID_WINDOW_MOUSE_SIZEALL,      -1},
-        {ID_WINDOW_MOUSE_CUSTOM,       -1}
+        {ID_WINDOW_BGCOLOR,           -1},
+
+        {ID_WINDOW_MOUSE_ARROW,       -1},
+        {ID_WINDOW_MOUSE_HAND,        -1},
+        {ID_WINDOW_MOUSE_CROSS,       -1},
+        {ID_WINDOW_MOUSE_WAIT,        -1},
+        {ID_WINDOW_MOUSE_IBEAM,       -1},
+        {ID_WINDOW_MOUSE_SIZEALL,     -1},
+        {ID_WINDOW_MOUSE_CUSTOM,      -1},
+
+        {ID_ACTION_CLEAR,             -1},
+        {ID_ACTION_SAVE ,             -1},
+        { ID_ACTION_LOAD ,            -1},
 };
 
 #endif //PROJECT_MENUIDS_H

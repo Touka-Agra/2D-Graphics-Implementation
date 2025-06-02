@@ -6,6 +6,7 @@
 #define PROJECT_PAINT_H
 
 #include <iostream>
+#include <windows.h>
 #include <vector>
 #include "Point.h"
 
@@ -15,11 +16,14 @@ class Paint{
 private:
     int type;
     vector<Point> points;
+    COLORREF color;
 
 public:
-    Paint(int type, vector<Point> points): type(type), points(points){}
+    Paint(int type, vector<Point> points, COLORREF color): type(type), points(points), color(color){}
     int getType() const { return type; }
     const vector<Point>& getPoints() const { return points; }
+    COLORREF getColor(){return color;}
+    int getNumOfPoints(){return points.size();}
 };
 
 

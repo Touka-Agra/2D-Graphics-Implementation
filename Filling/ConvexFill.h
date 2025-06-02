@@ -1,5 +1,11 @@
+#ifndef ConvexFill_H
+#define ConvexFill_H
+
 #include <Windows.h>
 #include <algorithm>
+#include <cmath>
+#include <vector>
+#include "../Classes/Point.h"
 
 using namespace std;
 
@@ -19,7 +25,7 @@ void InitEntries(Entry table[])
     }
 }
 
-void ScanEdge(POINT v1, POINT v2, Entry table[])
+void ScanEdge(Point v1, Point v2, Entry table[])
 {
     if (v1.y == v2.y)
         return;
@@ -47,17 +53,20 @@ void DrawSanLines(HDC hdc, Entry table[], COLORREF color)
                 SetPixel(hdc, x, y, color);
 }
 
-void ConvexFill(HDC hdc, POINT p[], int n, COLORREF color)
+void ConvexFill(HDC hdc, vector<Point> p, COLORREF color)
 {
+    int n = p.size();
     Entry *table = new Entry[MAXENTRIES];
     InitEntries(table);
-    POINT v1 = p[n - 1];
+    Point v1 = p[n - 1];
     for (int i = 0; i < n; i++)
     {
-        POINT v2 = p[i];
+        Point v2 = p[i];
         ScanEdge(v1, v2, table);
         v1 = p[i];
     }
     DrawSanLines(hdc, table, color);
     delete table;
 }
+
+#endif

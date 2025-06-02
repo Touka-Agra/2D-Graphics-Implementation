@@ -2,6 +2,9 @@
 // Created by sh2 on 26-May-25.
 //
 
+#ifndef BEZIER_H
+#define BEZIER_H
+
 #include <windows.h>
 #include <cmath>
 #include <vector>
@@ -32,7 +35,7 @@ void DrawBezier(HDC hdc, vector<Point> points, COLORREF c) {
         SetPixel(hdc, (int) newPoint.x, (int) newPoint.y, c);
     }
 }
-
+#endif
 
 //COLORREF InterpolateColor(COLORREF c1, COLORREF c2, double t) {
 //    BYTE r1 = GetRValue(c1);

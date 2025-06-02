@@ -14,7 +14,7 @@ void drawCircleDirect(HDC hdc, std::vector<Point> points, COLORREF color) {
     int dx = points[1].x - xc;
     int dy = points[1].y - yc;
     int R = static_cast<int>(sqrt(dx*dx + dy*dy));
-    
+
     int x = 0;
     int y = R;
     int R2 = R * R;

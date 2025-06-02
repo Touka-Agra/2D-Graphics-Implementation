@@ -1,3 +1,7 @@
+
+#ifndef MidpointEllipse_H
+#define MidpointEllipse_H
+
 #include <Windows.h>
 #include <algorithm>
 #include <cmath>
@@ -16,3 +20,5 @@ void draw4Points(HDC hdc, int centerX, int centerY, int px, int py, COLORREF c)
     SetPixel(hdc, centerX + px, centerY - py, c);
     SetPixel(hdc, centerX - px, centerY - py, c);
 }
+
+#endif
