@@ -12,6 +12,8 @@
 #include "../Shapes/Circle/CircleModifiedMidpoint.h"
 #include "../Shapes/Circle/CircleMidpoint.h"
 #include "../Shapes/Circle/CircleIterativePolar.h"
+#include "../Shapes/Circle/FillCircleWithCircles.h"
+#include "../Shapes/Circle/FillCircleWithLines.h"
 #include "../Clipping/Rectangle&Square/PointClipping.h"
 #include "../Clipping/Rectangle&Square/LineClipping.h"
 #include "../Clipping/Rectangle&Square/PolygonClipping.h"
