@@ -5,7 +5,6 @@
 #ifndef INC_2D_GRAPHICS_IMPLEMENTATION_BRESENHAMLINE_H
 #define INC_2D_GRAPHICS_IMPLEMENTATION_BRESENHAMLINE_H
 
-#endif //INC_2D_GRAPHICS_IMPLEMENTATION_BRESENHAMLINE_H
 
 #include <windows.h>
 #include <cmath>
@@ -54,3 +53,6 @@ void drawBresenhamLine(HDC hdc, vector<Point> p, COLORREF c) {
         }
     }
 }
+
+#endif //INC_2D_GRAPHICS_IMPLEMENTATION_BRESENHAMLINE_H
+

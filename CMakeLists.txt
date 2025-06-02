@@ -18,6 +18,10 @@ add_executable(Project main.cpp
         Clipping/Rectangle&Square/LineClipping.h
         Shapes/Line/BresenhamLine.h
         Clipping/Rectangle&Square/PolygonClipping.h
+        Utilities/fileUtilitis.h
+        Utilities/fileUtilitis.h
+        Utilities/utilityPicker.h
+        Utilities/utilityPicker.h
 
 )
 
