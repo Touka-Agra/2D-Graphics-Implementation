@@ -1,3 +1,7 @@
+
+#ifndef standardEllipse_H
+#define standardEllipse_H
+
 #include <Windows.h>
 #include <algorithm>
 #include <cmath>
@@ -31,3 +35,5 @@ void DrawEllipse(HDC hdc, int centerX, int centerY, int a, int b, COLORREF c)
         draw4Points(hdc, centerX, centerY, px, py, c);
     }
 }
+
+#endif

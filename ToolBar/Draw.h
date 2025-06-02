@@ -16,6 +16,8 @@
 #include "../Clipping/Rectangle&Square/LineClipping.h"
 #include "../Clipping/Rectangle&Square/PolygonClipping.h"
 #include "../Utilities/fileUtilitis.h"
+#include "../Filling/ConvexFill.h"
+#include "../Filling/GeneralPolygonFill.h"
 
 
 using namespace std;
@@ -114,9 +116,11 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
 
             // ===== Fill =====
         case ID_FILL_CONVEX:
+            ConvexFill(hdc, points, color);
             cout << "Convex Polygon has been filled\n\n";
             break;
         case ID_FILL_NONCONVEX:
+            GeneralPolygonFill(hdc, points, color);
             cout << "Non-Convex Polygon has been filled\n\n";
             break;
         case ID_FILL_RECURSIVE_FF:
@@ -125,7 +129,6 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
         case ID_FILL_NONRECURSIVE_FF:
             cout << "Non-Recursive Flood Fill applied\n\n";
             break;
-
 
             // ===== Actions =====
         case ID_ACTION_CLEAR:

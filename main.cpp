@@ -280,7 +280,8 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     window.push_back(clipRect.right);
                     window.push_back(clipRect.top);
                     window.push_back(clipRect.bottom);
-                } else if (userChoice == ID_CLIP_SQUARE_POINT || userChoice == ID_CLIP_SQUARE_LINE) {
+                }
+                else if (userChoice == ID_CLIP_SQUARE_POINT || userChoice == ID_CLIP_SQUARE_LINE) {
                     // Square Clipping
                     ShowClippingOverlay(hwnd);
 
@@ -325,15 +326,17 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     // Handle cursor change
                     chosenCursor = changeCursor(userChoice);
                     cout << "Mouse cursor changed\n\n";
-                } else if (userChoice == ID_WINDOW_BGCOLOR) {
+                }
+                else if (userChoice == ID_WINDOW_BGCOLOR) {
                     DeleteObject(brush);
                     chosenBgColor = pickColor(hwnd, chosenBgColor);
                     brush = CreateSolidBrush(chosenBgColor);
                     InvalidateRect(hwnd, NULL, false); // Force redraw
-                } else if (needPoints <= 0) {
+                }
+                else if (needPoints <= 0) {
                     // Perform drawing if needed
                     hdc = GetDC(hwnd);
-                    if (userChoice == ID_CLIP_RECT_POLYGON) {
+                    if (userChoice == ID_CLIP_RECT_POLYGON || userChoice == ID_FILL_CONVEX ||  userChoice == ID_FILL_NONCONVEX) {
                         int numPts;
                         cout << "Enter number of points: ";
                         cin >> numPts;

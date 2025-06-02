@@ -1,3 +1,7 @@
+
+#ifndef recursiveFloodFill_H
+#define recursiveFloodFill_H
+
 #include <Windows.h>
 #include <stack>
 
@@ -13,3 +17,5 @@ void recursiveFloodFill(HDC hdc, int x, int y, COLORREF fillCollor, COLORREF boa
     recursiveFloodFill(hdc, x, y - 1, fillCollor, boarderCollor);
     return;
 }
+
+#endif

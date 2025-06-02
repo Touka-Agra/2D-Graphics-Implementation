@@ -1,3 +1,7 @@
+
+#ifndef iterativeFloodFill_H
+#define iterativeFloodFill_H
+
 #include <Windows.h>
 #include <stack>
 
@@ -29,3 +33,5 @@ void iterativeFloodFill(HDC hdc, int x, int y, COLORREF fillColor, COLORREF bord
         stk.push({currentX, currentY - 1});
     }
 }
+
+#endif

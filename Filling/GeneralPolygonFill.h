@@ -1,6 +1,13 @@
+
+#ifndef GeneralPolygonFill_H
+#define GeneralPolygonFill_H
+
 #include <Windows.h>
 #include <algorithm>
+#include <vector>
+#include "../Classes/Point.h"
 #include <list>
+#include <cmath>
 
 using namespace std;
 
@@ -19,7 +26,7 @@ struct EdgeRec
 
 typedef list<EdgeRec> EdgeList;
 
-EdgeRec InitEdgeRec(POINT &v1, POINT &v2)
+EdgeRec InitEdgeRec(Point &v1, Point &v2)
 {
     if (v1.y > v2.y)
         swap(v1, v2);
@@ -30,25 +37,26 @@ EdgeRec InitEdgeRec(POINT &v1, POINT &v2)
     return rec;
 }
 
-void InitEdgeTable(POINT *polygon, int n, EdgeList table[])
+void InitEdgeTable(vector<Point> polygon, int n, EdgeList table[])
 {
-    POINT v1 = polygon[n - 1];
+    Point v1 = polygon[n - 1];
     for (int i = 0; i < n; i++)
     {
-        POINT v2 = polygon[i];
+        Point v2 = polygon[i];
         if (v1.y == v2.y)
         {
             v1 = v2;
             continue;
         }
         EdgeRec rec = InitEdgeRec(v1, v2);
-        table[v1.y].push_back(rec);
+        table[(int)v1.y].push_back(rec);
         v1 = polygon[i];
     }
 }
 
-void GeneralPolygonFill(HDC hdc, POINT *polygon, int n, COLORREF c)
+void GeneralPolygonFill(HDC hdc, vector<Point> polygon, COLORREF c)
 {
+    int n = polygon.size();
     EdgeList *table = new EdgeList[MAXENTRIES];
     InitEdgeTable(polygon, n, table);
     int y = 0;
@@ -81,3 +89,5 @@ void GeneralPolygonFill(HDC hdc, POINT *polygon, int n, COLORREF c)
     }
     delete[] table;
 }
+
+#endif

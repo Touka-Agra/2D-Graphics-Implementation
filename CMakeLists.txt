@@ -22,6 +22,12 @@ add_executable(Project main.cpp
         Utilities/fileUtilitis.h
         Utilities/utilityPicker.h
         Utilities/utilityPicker.h
+        Shapes/Ellipse/MidpointEllipse.h
+        Shapes/Ellipse/standardEllipse.h
+        Filling/ConvexFill.h
+        Filling/GeneralPolygonFill.h
+        Filling/iterativeFloodFill.h
+        Filling/recursiveFloodFill.h
 
 )
 
