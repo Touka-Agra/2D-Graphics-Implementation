@@ -2,9 +2,10 @@
 // Created by LENOVO on 5/28/2025.
 //
 
-#ifndef INC_2D_GRAPHICS_IMPLEMENTATION_BRESENHAMLINE_H
-#define INC_2D_GRAPHICS_IMPLEMENTATION_BRESENHAMLINE_H
+#ifndef BRESENHAMLINE_H
+#define BRESENHAMLINE_H
 
+#endif
 
 #include <windows.h>
 #include <cmath>
@@ -53,6 +54,3 @@ void drawBresenhamLine(HDC hdc, vector<Point> p, COLORREF c) {
         }
     }
 }
-
-#endif //INC_2D_GRAPHICS_IMPLEMENTATION_BRESENHAMLINE_H
-
