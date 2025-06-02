@@ -18,6 +18,10 @@
 using namespace std;
 
 
+//Window Background Color
+COLORREF chosenBgColor = RGB(50, 100,150);
+HBRUSH brush =  CreateSolidBrush(chosenBgColor);
+
 bool myloadFile(HDC hdc, string filename) {
     ifstream inFile(filename);
 
@@ -50,7 +54,7 @@ bool myloadFile(HDC hdc, string filename) {
 
         cout << type << " " << numOfPoints << color << endl;
 
-        draw(hdc, type, points, color);
+        draw(hdc, type, points, color,chosenBgColor);
     }
 
     cout << "All are loaded\n";
@@ -58,10 +62,6 @@ bool myloadFile(HDC hdc, string filename) {
     return true;
 }
 
-
-//Window Background Color
-COLORREF chosenBgColor = RGB(50, 100,150);
-HBRUSH brush =  CreateSolidBrush(chosenBgColor);
 
 /* Function declarations */
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
@@ -205,7 +205,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     if (userChoice >= ID_CLIP_RECT_POINT && userChoice <= ID_CLIP_CIRCLE_LINE) {
                         clip(hdc, userChoice, points, window, chosenColor);
                     } else {
-                        draw(hdc, userChoice, points, chosenColor);
+                        draw(hdc, userChoice, points, chosenColor, chosenBgColor);
                     }
 
                     ReleaseDC(hwnd, hdc);
@@ -342,7 +342,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                         cin >> numPts;
                         needPoints = numPts;
                     } else {
-                        draw(hdc, userChoice, points, chosenColor);
+                        draw(hdc, userChoice, points, chosenColor,chosenBgColor);
                     }
                     ReleaseDC(hwnd, hdc);
                 }

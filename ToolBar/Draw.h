@@ -18,20 +18,22 @@
 #include "../Utilities/fileUtilitis.h"
 #include "../Filling/ConvexFill.h"
 #include "../Filling/GeneralPolygonFill.h"
+#include "../Filling/recursiveFloodFill.h"
+#include "../Filling/iterativeFloodFill.h"
 
 
 using namespace std;
 
 vector<Paint> paints = {};
 
-void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
+void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color, COLORREF bgColor) {
     bool updatePaints = true;
     switch (userChoice) {
         case ID_PIXEL:
             SetPixel(hdc, points[0].x, points[0].y, color);
             cout << "Pixel has been drawn\n\n";
             break;
-        // ===== Line =====
+            // ===== Line =====
         case ID_SHAPE_LINE_DDA:
             drawDDALine(hdc, points, color);
             cout << "DDA Line has been drawn\n\n";
@@ -124,9 +126,11 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
             cout << "Non-Convex Polygon has been filled\n\n";
             break;
         case ID_FILL_RECURSIVE_FF:
+            recursiveFloodFill(hdc, points[0].x, points[0].y, color, bgColor);
             cout << "Recursive Flood Fill applied\n\n";
             break;
         case ID_FILL_NONRECURSIVE_FF:
+            iterativeFloodFill(hdc, points[0].x, points[0].y, color, bgColor);
             cout << "Non-Recursive Flood Fill applied\n\n";
             break;
 
