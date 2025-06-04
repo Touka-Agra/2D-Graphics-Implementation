@@ -5,6 +5,7 @@
 #include "../Classes/Point.h"
 #include "../Classes/Paint.h"
 #include "../Curves/Bezier.h"
+#include "../Curves/CardinalSplineCurve.h"
 #include "../Shapes/Line/DDALine.h"
 #include "../Shapes/Line/InterpolatedLine.h"
 #include "../Shapes/Circle/CircleDirect.h"
@@ -119,6 +120,8 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
             break;
         }
         case ID_CURVE_CARDINAL_SPLINE:
+            DrawCardinalSpline(hdc, points, 0.5, color);
+            DrawControlPoints(hdc, points, RGB(255, 0, 0));
             cout << "Cardinal Spline Curve has been drawn\n\n";
             break;
 

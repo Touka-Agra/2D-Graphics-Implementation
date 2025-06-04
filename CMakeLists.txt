@@ -28,6 +28,7 @@ add_executable(Project main.cpp
         Filling/GeneralPolygonFill.h
         Filling/iterativeFloodFill.h
         Filling/recursiveFloodFill.h
+        Curves/CardinalSplineCurve.h
 
 )
 
