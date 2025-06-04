@@ -19,8 +19,8 @@ using namespace std;
 
 
 //Window Background Color
-COLORREF chosenBgColor = RGB(50, 100,150);
-HBRUSH brush =  CreateSolidBrush(chosenBgColor);
+COLORREF chosenBgColor = RGB(50, 100, 150);
+HBRUSH brush = CreateSolidBrush(chosenBgColor);
 
 bool myloadFile(HDC hdc, string filename) {
     ifstream inFile(filename);
@@ -49,10 +49,7 @@ bool myloadFile(HDC hdc, string filename) {
 
         unsigned long colorS;
         inFile >> colorS;
-        cout << colorS << endl;
         COLORREF color = (COLORREF) colorS;
-
-        cout << type << " " << numOfPoints << color << endl;
 
         draw(hdc, type, points, color);
     }
@@ -65,6 +62,7 @@ bool myloadFile(HDC hdc, string filename) {
 
 /* Function declarations */
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
+
 LRESULT CALLBACK OverlayProc(HWND, UINT, WPARAM, LPARAM);
 
 /* Global variables */
@@ -243,12 +241,11 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
             cout << "User Choice: " << userChoice << endl;
             needPoints = mapOfNeedPoints[userChoice];
 
-            if(userChoice == ID_ACTION_LOAD){
-            hdc = GetDC(hwnd);
-            myloadFile(hdc, "../Files/SavedFiles/test.txt");
-            ReleaseDC(hwnd, hdc);
-            }
-            else {
+            if (userChoice == ID_ACTION_LOAD) {
+                hdc = GetDC(hwnd);
+                myloadFile(hdc, "../Files/SavedFiles/test.txt");
+                ReleaseDC(hwnd, hdc);
+            } else {
                 if (needPoints != -1) {
                     chosenColor = pickColor(hwnd, chosenColor);
                 }
@@ -280,8 +277,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     window.push_back(clipRect.right);
                     window.push_back(clipRect.top);
                     window.push_back(clipRect.bottom);
-                }
-                else if (userChoice == ID_CLIP_SQUARE_POINT || userChoice == ID_CLIP_SQUARE_LINE) {
+                } else if (userChoice == ID_CLIP_SQUARE_POINT || userChoice == ID_CLIP_SQUARE_LINE) {
                     // Square Clipping
                     ShowClippingOverlay(hwnd);
 
@@ -326,17 +322,16 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     // Handle cursor change
                     chosenCursor = changeCursor(userChoice);
                     cout << "Mouse cursor changed\n\n";
-                }
-                else if (userChoice == ID_WINDOW_BGCOLOR) {
+                } else if (userChoice == ID_WINDOW_BGCOLOR) {
                     DeleteObject(brush);
                     chosenBgColor = pickColor(hwnd, chosenBgColor);
                     brush = CreateSolidBrush(chosenBgColor);
                     InvalidateRect(hwnd, NULL, false); // Force redraw
-                }
-                else if (needPoints <= 0) {
+                } else if (needPoints <= 0) {
                     // Perform drawing if needed
                     hdc = GetDC(hwnd);
-                    if (userChoice == ID_CLIP_RECT_POLYGON || userChoice == ID_FILL_CONVEX ||  userChoice == ID_FILL_NONCONVEX) {
+                    if (userChoice == ID_CLIP_RECT_POLYGON || userChoice == ID_FILL_CONVEX ||
+                        userChoice == ID_FILL_NONCONVEX) {
                         int numPts;
                         cout << "Enter number of points: ";
                         cin >> numPts;

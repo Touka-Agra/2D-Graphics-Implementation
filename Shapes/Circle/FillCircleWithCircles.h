@@ -11,9 +11,7 @@
 void fillQuarterCircleWithCircles(HDC hdc, std::vector<Point> points, COLORREF color) {
     if(points.size() < 3) return;
 
-
     drawCircleModifiedMidpoint(hdc, {points[0], points[1]}, color);
-
 
     int xc = points[0].x;
     int yc = points[0].y;
@@ -21,14 +19,11 @@ void fillQuarterCircleWithCircles(HDC hdc, std::vector<Point> points, COLORREF c
     int dy = points[1].y - yc;
     int R = static_cast<int>(sqrt(dx*dx + dy*dy));
 
-
     int xp = points[2].x;
     int yp = points[2].y;
 
-
     bool right = (xp > xc);
     bool bottom = (yp > yc);
-
 
     for(int r = R; r > 0; r--) {
         int x = r;

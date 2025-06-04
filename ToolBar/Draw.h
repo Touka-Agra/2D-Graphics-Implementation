@@ -22,6 +22,7 @@
 #include "../Filling/GeneralPolygonFill.h"
 #include "../Filling/recursiveFloodFill.h"
 #include "../Filling/iterativeFloodFill.h"
+#include "../Shapes/Ellipse/standardEllipse.h"
 
 
 using namespace std;
@@ -76,12 +77,13 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
             cout << "Filled Circle with Lines has been drawn\n\n";
             break;
         case ID_SHAPE_CIRCLE_FILL_CIRCLES:
-            fillQuarterCircleWithCircles( hdc,  points, color);
-            cout << "Filled Circle with Circles has been drawn\n\b";
+            fillQuarterCircleWithCircles(hdc, points, color);
+            cout << "Filled Circle with Circles has been drawn\n\n";
             break;
 
             // ===== Ellipse =====
         case ID_SHAPE_ELLIPSE_DIRECT:
+            DrawEllipse(hdc, points, color);
             cout << "Direct Ellipse has been drawn\n\n";
             break;
         case ID_SHAPE_ELLIPSE_POLAR:
