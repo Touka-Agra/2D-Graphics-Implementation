@@ -27,7 +27,7 @@ void DrawEllipse(HDC hdc, vector<Point> points, COLORREF c)
     double centerX = points[0].x;
     double centerY = points[0].y;
     double a = points[1].x;
-    double b = points[2].y;
+    double b = points[1].y;
 
     double step = 0.5;
 

@@ -1,3 +1,7 @@
+#ifndef PROJECT_Draw_H
+#define PROJECT_Draw_H
+
+
 #include <windows.h>
 #include <iostream>
 #include <vector>
@@ -160,12 +164,13 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
             break;
         }
 
-//        case ID_ACTION_LOAD: {
-//            bool isLoaded = myloadFile(hdc, "test.txt");
-//            cout << "Canvas loaded\n\n";
-//            updatePaints = false;
-//            break;
-//        }
+        case ID_ACTION_LOAD: {
+            paints.clear();
+            bool isLoaded = myloadFile(hdc, "../Files/SavedFiles/test.txt");
+            cout << "Canvas loaded\n\n";
+            updatePaints = false;
+            break;
+        }
             // ===== Window =====
         case ID_WINDOW_BGCOLOR:
             cout << "Background color changed\n\n";
@@ -231,3 +236,4 @@ void clip(HDC hdc, int userChoice, vector<Point> points, vector<int> window, COL
 
     }
 }
+#endif

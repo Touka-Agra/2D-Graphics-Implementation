@@ -9,8 +9,8 @@
 #include<fstream>
 #include <windows.h>
 #include <vector>
-//#include "../Classes/Paint.h"
-//#include "../ToolBar/Draw.h"
+#include "../Classes/Paint.h"
+#include "../ToolBar/Draw.h"
 
 using namespace std;
 
@@ -54,6 +54,48 @@ bool mysaveFile(const string filename, vector<Paint> paints, bool isUser) {
     }
     return true;
 }
+
+
+void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color);
+
+bool myloadFile(HDC hdc, string filename) {
+    ifstream inFile(filename);
+
+    if (!inFile.is_open()) {
+        cout << "Load Error: Couldn't open the File\n";
+        return false;
+    }
+
+    string typeS;
+    while (inFile >> typeS) {
+        int type = stoi(typeS);
+        vector<Point> points;
+
+        string numOfPointsS;
+        inFile >> numOfPointsS;
+        int numOfPoints = stoi(numOfPointsS);
+
+        for (int i = 0; i < numOfPoints; i++) {
+            double x, y;
+            inFile >> x >> y;
+            Point point = Point(x, y);
+
+            points.push_back(point);
+        }
+
+        unsigned long colorS;
+        inFile >> colorS;
+        COLORREF color = (COLORREF) colorS;
+
+        draw(hdc, type, points, color);
+    }
+
+    cout << "All are loaded\n";
+
+    return true;
+}
+
+
 
 void myclearFile() {
     return;

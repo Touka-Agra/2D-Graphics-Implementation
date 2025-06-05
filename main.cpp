@@ -22,44 +22,6 @@ using namespace std;
 COLORREF chosenBgColor = RGB(50, 100, 150);
 HBRUSH brush = CreateSolidBrush(chosenBgColor);
 
-bool myloadFile(HDC hdc, string filename) {
-    ifstream inFile(filename);
-
-    if (!inFile.is_open()) {
-        cout << "Load Error: Couldn't open the File\n";
-        return false;
-    }
-
-    string typeS;
-    while (inFile >> typeS) {
-        int type = stoi(typeS);
-        vector<Point> points;
-
-        string numOfPointsS;
-        inFile >> numOfPointsS;
-        int numOfPoints = stoi(numOfPointsS);
-
-        for (int i = 0; i < numOfPoints; i++) {
-            double x, y;
-            inFile >> x >> y;
-            Point point = Point(x, y);
-
-            points.push_back(point);
-        }
-
-        unsigned long colorS;
-        inFile >> colorS;
-        COLORREF color = (COLORREF) colorS;
-
-        draw(hdc, type, points, color);
-    }
-
-    cout << "All are loaded\n";
-
-    return true;
-}
-
-
 /* Function declarations */
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 
@@ -241,11 +203,11 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
             cout << "User Choice: " << userChoice << endl;
             needPoints = mapOfNeedPoints[userChoice];
 
-            if (userChoice == ID_ACTION_LOAD) {
-                hdc = GetDC(hwnd);
-                myloadFile(hdc, "../Files/SavedFiles/test.txt");
-                ReleaseDC(hwnd, hdc);
-            } else {
+//            if (userChoice == ID_ACTION_LOAD) {
+//                hdc = GetDC(hwnd);
+//                myloadFile(hdc, "../Files/SavedFiles/test.txt");
+//                ReleaseDC(hwnd, hdc);
+//            } else {
                 if (needPoints != -1) {
                     chosenColor = pickColor(hwnd, chosenColor);
                 }
@@ -277,7 +239,8 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     window.push_back(clipRect.right);
                     window.push_back(clipRect.top);
                     window.push_back(clipRect.bottom);
-                } else if (userChoice == ID_CLIP_SQUARE_POINT || userChoice == ID_CLIP_SQUARE_LINE) {
+                }
+                else if (userChoice == ID_CLIP_SQUARE_POINT || userChoice == ID_CLIP_SQUARE_LINE) {
                     // Square Clipping
                     ShowClippingOverlay(hwnd);
 
@@ -312,7 +275,8 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     window.push_back(clipSqu.right);
                     window.push_back(clipSqu.top);
                     window.push_back(clipSqu.bottom);
-                } else {
+                }
+                else {
                     // Hide clipping overlay if not rectangle or square
                     HideClippingOverlay();
                     window.clear();
@@ -322,7 +286,8 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     // Handle cursor change
                     chosenCursor = changeCursor(userChoice);
                     cout << "Mouse cursor changed\n\n";
-                } else if (userChoice == ID_WINDOW_BGCOLOR) {
+                }
+                else if (userChoice == ID_WINDOW_BGCOLOR) {
                     DeleteObject(brush);
                     chosenBgColor = pickColor(hwnd, chosenBgColor);
                     brush = CreateSolidBrush(chosenBgColor);
@@ -341,7 +306,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     }
                     ReleaseDC(hwnd, hdc);
                 }
-            }
+            //}
             break;
 
         case WM_SETCURSOR:
