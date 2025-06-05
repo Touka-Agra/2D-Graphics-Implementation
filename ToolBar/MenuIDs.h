@@ -79,9 +79,6 @@
 #define ID_ACTION_LOAD               5003
 
 //======================== Window ======================
-
-#define ID_WINDOW_BGCOLOR            6001
-
 //===== Mouse =====
 //#define ID_WINDOW_MOUSE             6100
 #define ID_WINDOW_MOUSE_ARROW         6101
@@ -134,8 +131,6 @@ extern std::map<int, int> mapOfNeedPoints = {
 
         {ID_CLIP_CIRCLE_POINT,         0},
         {ID_CLIP_CIRCLE_LINE,          0},
-
-        {ID_WINDOW_BGCOLOR,           -1},
 
         {ID_WINDOW_MOUSE_ARROW,       -1},
         {ID_WINDOW_MOUSE_HAND,        -1},

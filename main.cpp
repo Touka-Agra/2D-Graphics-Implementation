@@ -19,8 +19,9 @@ using namespace std;
 
 
 //Window Background Color
-COLORREF chosenBgColor = RGB(50, 100, 150);
-HBRUSH brush = CreateSolidBrush(chosenBgColor);
+//COLORREF bgColor = RGB(255, 255, 255);
+COLORREF bgColor = RGB(0, 0, 0);
+HBRUSH brush = CreateSolidBrush(bgColor);
 
 /* Function declarations */
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
@@ -287,12 +288,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     chosenCursor = changeCursor(userChoice);
                     cout << "Mouse cursor changed\n\n";
                 }
-                else if (userChoice == ID_WINDOW_BGCOLOR) {
-                    DeleteObject(brush);
-                    chosenBgColor = pickColor(hwnd, chosenBgColor);
-                    brush = CreateSolidBrush(chosenBgColor);
-                    InvalidateRect(hwnd, NULL, false); // Force redraw
-                } else if (needPoints <= 0) {
+                else if (needPoints <= 0) {
                     // Perform drawing if needed
                     hdc = GetDC(hwnd);
                     if (userChoice == ID_CLIP_RECT_POLYGON || userChoice == ID_FILL_CONVEX ||

@@ -171,10 +171,6 @@ void draw(HWND hwnd, HDC hdc, int userChoice, vector<Point> points, COLORREF col
             updatePaints = false;
             break;
         }
-            // ===== Window =====
-        case ID_WINDOW_BGCOLOR:
-            cout << "Background color changed\n\n";
-            break;
 
         default:
             cout << "Unknown user choice\n\n";
