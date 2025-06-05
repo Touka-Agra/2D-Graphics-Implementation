@@ -17,7 +17,6 @@
 
 using namespace std;
 
-
 //Window Background Color
 //COLORREF bgColor = RGB(255, 255, 255);
 COLORREF bgColor = RGB(0, 0, 0);
@@ -292,12 +291,13 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     // Perform drawing if needed
                     hdc = GetDC(hwnd);
                     if (userChoice == ID_CLIP_RECT_POLYGON || userChoice == ID_FILL_CONVEX ||
-                        userChoice == ID_FILL_NONCONVEX) {
+                        userChoice == ID_FILL_NONCONVEX || userChoice == ID_CURVE_CARDINAL_SPLINE) {
                         int numPts;
                         cout << "Enter number of points: ";
                         cin >> numPts;
                         needPoints = numPts;
-                    } else {
+                    }
+                    else {
                         draw(hwnd, hdc, userChoice, points, chosenColor);
                     }
                     ReleaseDC(hwnd, hdc);

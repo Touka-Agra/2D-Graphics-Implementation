@@ -115,7 +115,7 @@ extern std::map<int, int> mapOfNeedPoints = {
 
         {ID_CURVE_HERMITE,             0},
         {ID_CURVE_BEZIER,              4},
-        {ID_CURVE_CARDINAL_SPLINE,     8},
+        {ID_CURVE_CARDINAL_SPLINE,     0},
 
         {ID_FILL_CONVEX,               0},
         {ID_FILL_NONCONVEX,            0},
