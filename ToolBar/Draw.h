@@ -159,14 +159,16 @@ void draw(HWND hwnd, HDC hdc, int userChoice, vector<Point> points, COLORREF col
             break;
 
         case ID_ACTION_SAVE: {
-            bool isSaved = saveFile("../Files/SavedFiles/test.txt", paints, true);
+            string chosenFile = getChosenFile();
+            bool isSaved = saveFile(chosenFile, paints, true);
             if(isSaved) cout << "Canvas saved\n\n";
             updatePaints = false;
             break;
         }
 
         case ID_ACTION_LOAD: {
-            bool isLoaded = loadFile(hwnd, hdc, "../Files/SavedFiles/test.txt", paints);
+            string chosenFile = getChosenFile();
+            bool isLoaded = loadFile(hwnd, hdc, chosenFile, paints);
             if(isLoaded) cout << "Canvas loaded\n\n";
             updatePaints = false;
             break;
