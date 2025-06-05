@@ -34,7 +34,7 @@ using namespace std;
 
 vector<Paint> paints = {};
 
-void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
+void draw(HWND hwnd, HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
     bool updatePaints = true;
     switch (userChoice) {
         case ID_PIXEL:
@@ -153,21 +153,21 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
 
             // ===== Actions =====
         case ID_ACTION_CLEAR:
-            myclearFile();
+            clearFile(hwnd, paints);
             cout << "Canvas cleared\n\n";
             updatePaints = false;
             break;
+
         case ID_ACTION_SAVE: {
-            bool isSaved = mysaveFile("../Files/SavedFiles/test.txt", paints, true);
-            cout << "Canvas saved\n\n";
+            bool isSaved = saveFile("../Files/SavedFiles/test.txt", paints, true);
+            if(isSaved) cout << "Canvas saved\n\n";
             updatePaints = false;
             break;
         }
 
         case ID_ACTION_LOAD: {
-            paints.clear();
-            bool isLoaded = myloadFile(hdc, "../Files/SavedFiles/test.txt");
-            cout << "Canvas loaded\n\n";
+            bool isLoaded = loadFile(hwnd, hdc, "../Files/SavedFiles/test.txt", paints);
+            if(isLoaded) cout << "Canvas loaded\n\n";
             updatePaints = false;
             break;
         }

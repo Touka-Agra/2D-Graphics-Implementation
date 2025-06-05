@@ -165,7 +165,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     if (userChoice >= ID_CLIP_RECT_POINT && userChoice <= ID_CLIP_CIRCLE_LINE) {
                         clip(hdc, userChoice, points, window, chosenColor);
                     } else {
-                        draw(hdc, userChoice, points, chosenColor);
+                        draw(hwnd, hdc, userChoice, points, chosenColor);
                     }
 
                     ReleaseDC(hwnd, hdc);
@@ -205,7 +205,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 
 //            if (userChoice == ID_ACTION_LOAD) {
 //                hdc = GetDC(hwnd);
-//                myloadFile(hdc, "../Files/SavedFiles/test.txt");
+//                loadFile(hdc, "../Files/SavedFiles/test.txt");
 //                ReleaseDC(hwnd, hdc);
 //            } else {
                 if (needPoints != -1) {
@@ -302,7 +302,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                         cin >> numPts;
                         needPoints = numPts;
                     } else {
-                        draw(hdc, userChoice, points, chosenColor);
+                        draw(hwnd, hdc, userChoice, points, chosenColor);
                     }
                     ReleaseDC(hwnd, hdc);
                 }

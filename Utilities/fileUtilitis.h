@@ -14,7 +14,7 @@
 
 using namespace std;
 
-bool mysaveFile(const string filename, vector<Paint> paints, bool isUser) {
+bool saveFile(const string filename, vector<Paint> paints, bool isUser) {
 
     ofstream outFile(filename);
 
@@ -55,10 +55,18 @@ bool mysaveFile(const string filename, vector<Paint> paints, bool isUser) {
     return true;
 }
 
+void clearFile(HWND hwnd ,vector<Paint> &paints) {
+    paints.clear();
 
-void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color);
+    InvalidateRect(hwnd, NULL, TRUE);
+    UpdateWindow(hwnd);
+    return;
+}
 
-bool myloadFile(HDC hdc, string filename) {
+void draw(HWND hwnd, HDC hdc, int userChoice, vector<Point> points, COLORREF color);
+
+bool loadFile(HWND hwnd, HDC hdc ,string filename, vector<Paint> paints) {
+    clearFile(hwnd, paints);
     ifstream inFile(filename);
 
     if (!inFile.is_open()) {
@@ -87,18 +95,12 @@ bool myloadFile(HDC hdc, string filename) {
         inFile >> colorS;
         COLORREF color = (COLORREF) colorS;
 
-        draw(hdc, type, points, color);
+        draw(hwnd, hdc, type, points, color);
     }
 
     cout << "All are loaded\n";
 
     return true;
-}
-
-
-
-void myclearFile() {
-    return;
 }
 
 #endif //PROJECT_FILEUTILITIS_H
