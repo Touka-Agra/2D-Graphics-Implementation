@@ -129,8 +129,8 @@ extern std::map<int, int> mapOfNeedPoints = {
         {ID_CLIP_SQUARE_POINT,         1},
         {ID_CLIP_SQUARE_LINE,          2},
 
-        {ID_CLIP_CIRCLE_POINT,         0},
-        {ID_CLIP_CIRCLE_LINE,          0},
+        {ID_CLIP_CIRCLE_POINT,         1},
+        {ID_CLIP_CIRCLE_LINE,          2},
 
         {ID_WINDOW_MOUSE_ARROW,       -1},
         {ID_WINDOW_MOUSE_HAND,        -1},

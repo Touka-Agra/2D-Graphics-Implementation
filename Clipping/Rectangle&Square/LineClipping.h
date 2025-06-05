@@ -11,7 +11,6 @@
 #include <cmath>
 #include <vector>
 #include "../../Classes/Point.h"
-#include "../../Shapes/Line/BresenhamLine.h"
 //#include "../../Shapes/Line/BresenhamLine.h"
 
 using namespace std;

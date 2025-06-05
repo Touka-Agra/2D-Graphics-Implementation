@@ -27,6 +27,11 @@ add_executable(Project main.cpp
         Filling/iterativeFloodFill.h
         Filling/recursiveFloodFill.h
         Curves/CardinalSplineCurve.h
+        Clipping/Circle/PointClip.h
+        Shapes/Ellipse/polarEllipse.h
+        Shapes/Ellipse/draw4points.h
+        Clipping/Circle/LineClip.h
+        Clipping/Circle/IsPointIn.h
 
 )
 

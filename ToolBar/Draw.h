@@ -11,6 +11,7 @@
 #include "../Curves/Bezier.h"
 #include "../Curves/CardinalSplineCurve.h"
 #include "../Shapes/Line/DDALine.h"
+#include "../Shapes/Line/BresenhamLine.h"
 #include "../Shapes/Line/InterpolatedLine.h"
 #include "../Shapes/Circle/CircleDirect.h"
 #include "../Shapes/Circle/CirclePolar.h"
@@ -28,6 +29,10 @@
 #include "../Filling/recursiveFloodFill.h"
 #include "../Filling/iterativeFloodFill.h"
 #include "../Shapes/Ellipse/standardEllipse.h"
+#include "../Shapes/Ellipse/polarEllipse.h"
+#include "../Shapes/Ellipse/MidpointEllipse.h"
+#include "../Clipping/Circle/PointClip.h"
+#include "../Clipping/Circle/LineClip.h"
 
 
 using namespace std;
@@ -88,13 +93,15 @@ void draw(HWND hwnd, HDC hdc, int userChoice, vector<Point> points, COLORREF col
 
             // ===== Ellipse =====
         case ID_SHAPE_ELLIPSE_DIRECT:
-            DrawEllipse(hdc, points, color);
+            //DrawEllipse();
             cout << "Direct Ellipse has been drawn\n\n";
             break;
         case ID_SHAPE_ELLIPSE_POLAR:
+            //DrawPolarEllipse();
             cout << "Polar Ellipse has been drawn\n\n";
             break;
         case ID_SHAPE_ELLIPSE_MIDPOINT:
+            //DrawMidpointEllipse():
             cout << "Midpoint Ellipse has been drawn\n\n";
             break;
 
@@ -225,13 +232,21 @@ void clip(HDC hdc, int userChoice, vector<Point> points, vector<int> window, COL
             cout << "Line clipped in square\n\n";
             break;
         }
-        case ID_CLIP_CIRCLE_POINT:
+        case ID_CLIP_CIRCLE_POINT: {
+            bool drawPoint = drawClippedPointC(hdc, points, window, color);
+            if (drawPoint) {
+                Paint paint = Paint(ID_PIXEL, points, color);
+                paints.push_back(paint);
+            }
             cout << "Point clipped in circle\n\n";
             break;
-        case ID_CLIP_CIRCLE_LINE:
+        }
+        case ID_CLIP_CIRCLE_LINE: {
+            Paint paint = drawClippedLineC(hdc, points, window, color);
+            if (paint.getType() != 0) paints.push_back(paint);
             cout << "Line clipped in circle\n\n";
             break;
-
+        }
     }
 }
 #endif
