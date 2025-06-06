@@ -72,10 +72,10 @@ Paint drawClippedLineC(HDC hdc, vector<Point> points, vector<int> window, COLORR
 
         if (intersections == 0) {
             if (p1Inside || p2Inside) {
-                // Should not occur based on logic — defensive
+                // should not occur
             }
         } else if (intersections == 1) {
-            // Tangent - skip drawing
+            //skip drawing
         } else {
             if (p1Inside) {
                 double d1 = (ix1 - x1)*(ix1 - x1) + (iy1 - y1)*(iy1 - y1);

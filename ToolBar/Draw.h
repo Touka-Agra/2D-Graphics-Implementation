@@ -93,15 +93,15 @@ void draw(HWND hwnd, HDC hdc, int userChoice, vector<Point> points, COLORREF col
 
             // ===== Ellipse =====
         case ID_SHAPE_ELLIPSE_DIRECT:
-            //DrawEllipse();
+            DrawEllipse(hdc, points, color);
             cout << "Direct Ellipse has been drawn\n\n";
             break;
         case ID_SHAPE_ELLIPSE_POLAR:
-            //DrawPolarEllipse();
+            DrawPolarEllipse(hdc,points,color);
             cout << "Polar Ellipse has been drawn\n\n";
             break;
         case ID_SHAPE_ELLIPSE_MIDPOINT:
-            //DrawMidpointEllipse():
+            DrawMidpointEllipse(hdc,points,color);
             cout << "Midpoint Ellipse has been drawn\n\n";
             break;
 

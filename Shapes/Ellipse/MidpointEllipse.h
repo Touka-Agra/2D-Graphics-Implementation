@@ -5,24 +5,17 @@
 #include <Windows.h>
 #include <algorithm>
 #include <cmath>
+#include "draw4points.h"
 
 using namespace std;
 
-int Round(double x)
+void DrawMidpointEllipse(HDC hdc, vector<Point>points, COLORREF c)
 {
-    return (int)(x + 0.5);
-}
+    int xc = points[0].x;
+    int yc = points[0].y;
+    int a = points[1].x;
+    int b = points[1].y;
 
-void draw4Points(HDC hdc, int xc, int yc, int px, int py, COLORREF c)
-{
-    SetPixel(hdc, xc + px, yc + py, c);
-    SetPixel(hdc, xc - px, yc + py, c);
-    SetPixel(hdc, xc + px, yc - py, c);
-    SetPixel(hdc, xc - px, yc - py, c);
-}
-
-void DrawMidpointEllipse(HDC hdc, int xc, int yc, int a, int b, COLORREF c)
-{
     int x = 0;
     int y = b;
 
