@@ -7,7 +7,7 @@
 #include "../../Classes/Point.h"
 
 #include "CircleModifiedMidpoint.h"
-
+#include "../Line/BresenhamLine.h"
 
 void fillQuarterCircleWithLines(HDC hdc, std::vector<Point> points, COLORREF color) {
 
@@ -35,20 +35,20 @@ void fillQuarterCircleWithLines(HDC hdc, std::vector<Point> points, COLORREF col
         int y = static_cast<int>(sqrt(R*R - x*x));
 
         if(right && bottom) { // Bottom-right quarter
-            drawDDALine(hdc, {Point(xc, yc + y), Point(xc + x, yc + y)}, color);
-            drawDDALine(hdc, {Point(xc + x, yc), Point(xc + x, yc + y)}, color);
+            drawBresenhamLine(hdc, {Point(xc, yc + y), Point(xc + x, yc + y)}, color);
+            drawBresenhamLine(hdc, {Point(xc + x, yc), Point(xc + x, yc + y)}, color);
         }
         else if(!right && bottom) { // Bottom-left quarter
-            drawDDALine(hdc, {Point(xc - x, yc), Point(xc - x, yc + y)}, color);
-            drawDDALine(hdc, {Point(xc - x, yc + y), Point(xc, yc + y)}, color);
+            drawBresenhamLine(hdc, {Point(xc - x, yc), Point(xc - x, yc + y)}, color);
+            drawBresenhamLine(hdc, {Point(xc - x, yc + y), Point(xc, yc + y)}, color);
         }
         else if(right && !bottom) { // Top-right quarter
-            drawDDALine(hdc, {Point(xc, yc - y), Point(xc + x, yc - y)}, color);
-            drawDDALine(hdc, {Point(xc + x, yc - y), Point(xc + x, yc)}, color);
+            drawBresenhamLine(hdc, {Point(xc, yc - y), Point(xc + x, yc - y)}, color);
+            drawBresenhamLine(hdc, {Point(xc + x, yc - y), Point(xc + x, yc)}, color);
         }
         else { // Top-left quarter
-            drawDDALine(hdc, {Point(xc - x, yc - y), Point(xc, yc - y)}, color);
-            drawDDALine(hdc, {Point(xc - x, yc - y), Point(xc - x, yc)}, color);
+            drawBresenhamLine(hdc, {Point(xc - x, yc - y), Point(xc, yc - y)}, color);
+            drawBresenhamLine(hdc, {Point(xc - x, yc - y), Point(xc - x, yc)}, color);
         }
     }
 }

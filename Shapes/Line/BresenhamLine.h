@@ -5,8 +5,6 @@
 #ifndef BRESENHAMLINE_H
 #define BRESENHAMLINE_H
 
-#endif
-
 #include <windows.h>
 #include <cmath>
 #include "../../Classes/Point.h"
@@ -54,3 +52,7 @@ void drawBresenhamLine(HDC hdc, vector<Point> p, COLORREF c) {
         }
     }
 }
+
+
+#endif
+
