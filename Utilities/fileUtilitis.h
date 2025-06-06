@@ -9,38 +9,91 @@
 #include<fstream>
 #include <windows.h>
 #include <vector>
-//#include "../Classes/Paint.h"
-//#include "../ToolBar/Draw.h"
+#include <algorithm>
+#include "../Classes/Paint.h"
+#include "../ToolBar/Draw.h"
 
 using namespace std;
 
-bool mysaveFile(const string filename, vector<Paint> paints, bool isUser) {
+vector<string> savedFiles = {};
 
-    ofstream outFile(filename);
+string getChosenFile() {
+    string filename = "../Files/SavedFiles/master";
+    ifstream inFile(filename);
 
-    if (isUser) {
-        if (outFile.good()) {
-            cout << "File already exists.\n";
+    if (!inFile.is_open()) {
+        cout << "Something went wrong :(\n";
+        return "-1";
+    }
 
-            again:;
-            cout << "You want to override? y/n: ";
-            string choice;
-            cin >> choice;
+    savedFiles.clear();
+    cout << "\nFiles:\n";
+    string line;
+    int counter = 1;
+    while (inFile >> line) {
+        cout << counter << ": " << line << endl;
+        savedFiles.push_back(line);
+        counter++;
+    }
+    if (savedFiles.empty()) cout << "No Files exist.";
+    cout << endl;
 
-            if (choice == "n") {
-                cout << "Saving File stopped.\n";
-                return false;
-            } else if (choice != "y") {
-                cout << "Invalid Choice! try again.\n";
-                goto again;
-            }
-            cout << endl;
+    cout << "Enter a filename or path:";
+    string chosenFile;
+    cin >> chosenFile;
+    cout << endl;
+
+    if (chosenFile.find(".txt") == string::npos) {
+        chosenFile.append(".txt");
+    }
+
+    bool isPath = (chosenFile.find('/') != string::npos || chosenFile.find('\\') != string::npos);
+    if (!isPath) {
+        chosenFile = "../Files/SavedFiles/" + chosenFile;
+    }
+
+    return chosenFile;
+}
+
+bool saveFile(string chosenFile, vector<Paint> paints, bool isUser) {
+    bool isNewFile = (find(savedFiles.begin(), savedFiles.end(), chosenFile) == savedFiles.end());
+
+    ofstream outFile(chosenFile);
+
+    if (isUser && !isNewFile) {
+        cout << "File already exists.\n";
+
+        again:;
+        cout << "You want to override? y/n: ";
+        string choice;
+        cin >> choice;
+
+        if (choice == "n") {
+            cout << "Saving File stopped.\n";
+            return false;
+        } else if (choice != "y") {
+            cout << "Invalid Choice! try again.\n";
+            goto again;
         }
+        cout << endl;
+
     }
 
     if (!outFile.is_open()) {
         cout << "Save Error: Couldn't open the File\n";
         return false;
+    }
+
+    if (isNewFile) {
+        savedFiles.push_back(chosenFile);
+        ofstream masterOut("../Files/SavedFiles/master", ios::app);
+        if (masterOut.is_open()) {
+            masterOut << chosenFile << "\n";
+            masterOut.close();
+            cout << "New file is added.\n";
+        } else {
+            cout << "Warning: Couldn't update master file.\n";
+        }
     }
 
     for (Paint paint: paints) {
@@ -55,8 +108,49 @@ bool mysaveFile(const string filename, vector<Paint> paints, bool isUser) {
     return true;
 }
 
-void myclearFile() {
+void clearFile(HWND hwnd, vector<Paint> &paints) {
+    paints.clear();
+
+    InvalidateRect(hwnd, NULL, TRUE);
+    UpdateWindow(hwnd);
     return;
+}
+
+void draw(HWND hwnd, HDC hdc, int userChoice, vector<Point> points, COLORREF color);
+
+bool loadFile(HWND hwnd, HDC hdc, string chosenFile, vector<Paint> &paints) {
+    clearFile(hwnd, paints);
+    ifstream inFile(chosenFile);
+
+    if (!inFile.is_open()) {
+        cout << "Load Error: Couldn't open the File\n";
+        return false;
+    }
+
+    string typeS;
+    while (inFile >> typeS) {
+        int type = stoi(typeS);
+        vector<Point> points;
+
+        string numOfPointsS;
+        inFile >> numOfPointsS;
+        int numOfPoints = stoi(numOfPointsS);
+
+        for (int i = 0; i < numOfPoints; i++) {
+            double x, y;
+            inFile >> x >> y;
+            Point point = Point(x, y);
+
+            points.push_back(point);
+        }
+
+        unsigned long colorS;
+        inFile >> colorS;
+        COLORREF color = (COLORREF) colorS;
+
+        draw(hwnd, hdc, type, points, color);
+    }
+    return true;
 }
 
 #endif //PROJECT_FILEUTILITIS_H

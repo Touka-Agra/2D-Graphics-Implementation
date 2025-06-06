@@ -1,3 +1,7 @@
+#ifndef PROJECT_Draw_H
+#define PROJECT_Draw_H
+
+
 #include <windows.h>
 #include <iostream>
 #include <vector>
@@ -5,7 +9,9 @@
 #include "../Classes/Point.h"
 #include "../Classes/Paint.h"
 #include "../Curves/Bezier.h"
+#include "../Curves/CardinalSplineCurve.h"
 #include "../Shapes/Line/DDALine.h"
+#include "../Shapes/Line/BresenhamLine.h"
 #include "../Shapes/Line/InterpolatedLine.h"
 #include "../Shapes/Circle/CircleDirect.h"
 #include "../Shapes/Circle/CirclePolar.h"
@@ -22,13 +28,18 @@
 #include "../Filling/GeneralPolygonFill.h"
 #include "../Filling/recursiveFloodFill.h"
 #include "../Filling/iterativeFloodFill.h"
+#include "../Shapes/Ellipse/standardEllipse.h"
+#include "../Shapes/Ellipse/polarEllipse.h"
+#include "../Shapes/Ellipse/MidpointEllipse.h"
+#include "../Clipping/Circle/PointClip.h"
+#include "../Clipping/Circle/LineClip.h"
 
 
 using namespace std;
 
 vector<Paint> paints = {};
 
-void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
+void draw(HWND hwnd, HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
     bool updatePaints = true;
     switch (userChoice) {
         case ID_PIXEL:
@@ -76,18 +87,21 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
             cout << "Filled Circle with Lines has been drawn\n\n";
             break;
         case ID_SHAPE_CIRCLE_FILL_CIRCLES:
-            fillQuarterCircleWithCircles( hdc,  points, color);
-            cout << "Filled Circle with Circles has been drawn\n\b";
+            fillQuarterCircleWithCircles(hdc, points, color);
+            cout << "Filled Circle with Circles has been drawn\n\n";
             break;
 
             // ===== Ellipse =====
         case ID_SHAPE_ELLIPSE_DIRECT:
+            DrawEllipse(hdc, points, color);
             cout << "Direct Ellipse has been drawn\n\n";
             break;
         case ID_SHAPE_ELLIPSE_POLAR:
+            DrawPolarEllipse(hdc,points,color);
             cout << "Polar Ellipse has been drawn\n\n";
             break;
         case ID_SHAPE_ELLIPSE_MIDPOINT:
+            DrawMidpointEllipse(hdc,points,color);
             cout << "Midpoint Ellipse has been drawn\n\n";
             break;
 
@@ -117,6 +131,8 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
             break;
         }
         case ID_CURVE_CARDINAL_SPLINE:
+            DrawCardinalSpline(hdc, points, 0.5, color);
+            DrawControlPoints(hdc, points, RGB(255, 0, 0));
             cout << "Cardinal Spline Curve has been drawn\n\n";
             break;
 
@@ -144,27 +160,26 @@ void draw(HDC hdc, int userChoice, vector<Point> points, COLORREF color) {
 
             // ===== Actions =====
         case ID_ACTION_CLEAR:
-            myclearFile();
+            clearFile(hwnd, paints);
             cout << "Canvas cleared\n\n";
             updatePaints = false;
             break;
+
         case ID_ACTION_SAVE: {
-            bool isSaved = mysaveFile("../Files/SavedFiles/test.txt", paints, true);
-            cout << "Canvas saved\n\n";
+            string chosenFile = getChosenFile();
+            bool isSaved = saveFile(chosenFile, paints, true);
+            if(isSaved) cout << "Canvas saved\n\n";
             updatePaints = false;
             break;
         }
 
-//        case ID_ACTION_LOAD: {
-//            bool isLoaded = myloadFile(hdc, "test.txt");
-//            cout << "Canvas loaded\n\n";
-//            updatePaints = false;
-//            break;
-//        }
-            // ===== Window =====
-        case ID_WINDOW_BGCOLOR:
-            cout << "Background color changed\n\n";
+        case ID_ACTION_LOAD: {
+            string chosenFile = getChosenFile();
+            bool isLoaded = loadFile(hwnd, hdc, chosenFile, paints);
+            if(isLoaded) cout << "Canvas loaded\n\n";
+            updatePaints = false;
             break;
+        }
 
         default:
             cout << "Unknown user choice\n\n";
@@ -217,12 +232,21 @@ void clip(HDC hdc, int userChoice, vector<Point> points, vector<int> window, COL
             cout << "Line clipped in square\n\n";
             break;
         }
-        case ID_CLIP_CIRCLE_POINT:
+        case ID_CLIP_CIRCLE_POINT: {
+            bool drawPoint = drawClippedPointC(hdc, points, window, color);
+            if (drawPoint) {
+                Paint paint = Paint(ID_PIXEL, points, color);
+                paints.push_back(paint);
+            }
             cout << "Point clipped in circle\n\n";
             break;
-        case ID_CLIP_CIRCLE_LINE:
+        }
+        case ID_CLIP_CIRCLE_LINE: {
+            Paint paint = drawClippedLineC(hdc, points, window, color);
+            if (paint.getType() != 0) paints.push_back(paint);
             cout << "Line clipped in circle\n\n";
             break;
-
+        }
     }
 }
+#endif

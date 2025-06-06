@@ -20,14 +20,18 @@ add_executable(Project main.cpp
         Clipping/Rectangle&Square/PolygonClipping.h
         Utilities/fileUtilitis.h
         Utilities/fileUtilitis.h
-        Utilities/utilityPicker.h
-        Utilities/utilityPicker.h
         Shapes/Ellipse/MidpointEllipse.h
         Shapes/Ellipse/standardEllipse.h
         Filling/ConvexFill.h
         Filling/GeneralPolygonFill.h
         Filling/iterativeFloodFill.h
         Filling/recursiveFloodFill.h
+        Curves/CardinalSplineCurve.h
+        Clipping/Circle/PointClip.h
+        Shapes/Ellipse/polarEllipse.h
+        Shapes/Ellipse/draw4points.h
+        Clipping/Circle/LineClip.h
+        Clipping/Circle/IsPointIn.h
 
 )
 

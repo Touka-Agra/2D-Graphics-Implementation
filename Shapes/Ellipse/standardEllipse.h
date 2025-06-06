@@ -5,23 +5,24 @@
 #include <Windows.h>
 #include <algorithm>
 #include <cmath>
+#include <vector>
+#include "../../Classes/Point.h"
+#include "draw4points.h"
 
 using namespace std;
 
-int Round(double x)
-{
-    return (int)(x + 0.5);
-}
+#include <Windows.h>
+#include <algorithm>
+#include <cmath>
 
-void draw4Points(HDC hdc, int centerX, int centerY, int px, int py, COLORREF c)
+using namespace std;
+
+void DrawEllipse(HDC hdc, vector<Point>points, COLORREF c)
 {
-    SetPixel(hdc, centerX + px, centerY + py, c);
-    SetPixel(hdc, centerX - px, centerY + py, c);
-    SetPixel(hdc, centerX + px, centerY - py, c);
-    SetPixel(hdc, centerX - px, centerY - py, c);
-}
-void DrawEllipse(HDC hdc, int centerX, int centerY, int a, int b, COLORREF c)
-{
+    int xc = points[0].x;
+    int yc = points[0].y;
+    int a = points[1].x;
+    int b = points[1].y;
     double step = 0.5;
 
     for (double x = 0; x <= a; x += step)
@@ -29,10 +30,10 @@ void DrawEllipse(HDC hdc, int centerX, int centerY, int a, int b, COLORREF c)
 
         double y = b * sqrt(1.0 - (x * x) / (a * a));
 
-        int px = Round(x);
-        int py = Round(y);
+        int px = round(x);
+        int py = round(y);
 
-        draw4Points(hdc, centerX, centerY, px, py, c);
+        draw4Points(hdc, xc, yc, px, py, c);
     }
 }
 

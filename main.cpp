@@ -17,54 +17,14 @@
 
 using namespace std;
 
-
 //Window Background Color
-COLORREF chosenBgColor = RGB(50, 100,150);
-HBRUSH brush =  CreateSolidBrush(chosenBgColor);
-
-bool myloadFile(HDC hdc, string filename) {
-    ifstream inFile(filename);
-
-    if (!inFile.is_open()) {
-        cout << "Load Error: Couldn't open the File\n";
-        return false;
-    }
-
-    string typeS;
-    while (inFile >> typeS) {
-        int type = stoi(typeS);
-        vector<Point> points;
-
-        string numOfPointsS;
-        inFile >> numOfPointsS;
-        int numOfPoints = stoi(numOfPointsS);
-
-        for (int i = 0; i < numOfPoints; i++) {
-            double x, y;
-            inFile >> x >> y;
-            Point point = Point(x, y);
-
-            points.push_back(point);
-        }
-
-        unsigned long colorS;
-        inFile >> colorS;
-        cout << colorS << endl;
-        COLORREF color = (COLORREF) colorS;
-
-        cout << type << " " << numOfPoints << color << endl;
-
-        draw(hdc, type, points, color);
-    }
-
-    cout << "All are loaded\n";
-
-    return true;
-}
-
+//COLORREF bgColor = RGB(255, 255, 255);
+COLORREF bgColor = RGB(0, 0, 0);
+HBRUSH brush = CreateSolidBrush(bgColor);
 
 /* Function declarations */
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
+
 LRESULT CALLBACK OverlayProc(HWND, UINT, WPARAM, LPARAM);
 
 /* Global variables */
@@ -82,6 +42,8 @@ HCURSOR chosenCursor = LoadCursor(NULL, IDC_ARROW);
 
 RECT clipRect;    // Rectangle clipping area
 RECT clipSqu;     // Square clipping area
+RECT clipCir;     // Circle clipping bounding rectangle
+
 int margin = 50;
 HWND hOverlay = NULL;
 
@@ -125,6 +87,16 @@ void HideClippingOverlay() {
         hOverlay = NULL;
     }
 }
+
+enum ClippingMode {
+    NONE,
+    RECTANGLE,
+    SQUARE,
+    CIRCLE
+};
+
+ClippingMode currentMode = NONE;
+
 
 int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszArgument, int nCmdShow) {
     AllocConsole();
@@ -205,7 +177,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     if (userChoice >= ID_CLIP_RECT_POINT && userChoice <= ID_CLIP_CIRCLE_LINE) {
                         clip(hdc, userChoice, points, window, chosenColor);
                     } else {
-                        draw(hdc, userChoice, points, chosenColor);
+                        draw(hwnd, hdc, userChoice, points, chosenColor);
                     }
 
                     ReleaseDC(hwnd, hdc);
@@ -229,12 +201,14 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
             UpdateOverlayPosition(hwnd);
             break;
 
+
         case WM_DESTROY:
             PostQuitMessage(0);
             break;
 
         case WM_CREATE:
             createToolBar(hwnd);
+
             break;
 
         case WM_COMMAND:
@@ -243,23 +217,22 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
             cout << "User Choice: " << userChoice << endl;
             needPoints = mapOfNeedPoints[userChoice];
 
-            if(userChoice == ID_ACTION_LOAD){
-            hdc = GetDC(hwnd);
-            myloadFile(hdc, "../Files/SavedFiles/test.txt");
-            ReleaseDC(hwnd, hdc);
-            }
-            else {
                 if (needPoints != -1) {
                     chosenColor = pickColor(hwnd, chosenColor);
                 }
 
                 if (userChoice == ID_CLIP_RECT_POINT || userChoice == ID_CLIP_RECT_LINE ||
                     userChoice == ID_CLIP_RECT_POLYGON) {
+                    HideClippingOverlay();
+
                     // Rectangle Clipping
+                    currentMode = RECTANGLE;
+
                     ShowClippingOverlay(hwnd);
 
                     RECT client;
                     GetClientRect(hwnd, &client);
+
 
                     // Rectangle is the full client area minus the margin
                     clipRect.left = client.left + margin;
@@ -267,12 +240,6 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     clipRect.top = client.top + margin;
                     clipRect.bottom = client.bottom - margin;
 
-                    cout << "Rectangle clipRect: Left=" << clipRect.left
-                         << ", Top=" << clipRect.top
-                         << ", Right=" << clipRect.right
-                         << ", Bottom=" << clipRect.bottom
-                         << ", Size=" << clipRect.right - clipRect.left << "x" << clipRect.bottom - clipRect.top
-                         << endl;
 
                     // Clear the window vector and store rectangle coordinates
                     window.clear();
@@ -282,7 +249,11 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     window.push_back(clipRect.bottom);
                 }
                 else if (userChoice == ID_CLIP_SQUARE_POINT || userChoice == ID_CLIP_SQUARE_LINE) {
+                    HideClippingOverlay();
+
                     // Square Clipping
+                    currentMode = SQUARE;
+
                     ShowClippingOverlay(hwnd);
 
                     RECT client;
@@ -304,20 +275,47 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     clipSqu.right = left + squareSize;
                     clipSqu.bottom = top + squareSize;
 
-                    cout << "Square clipRect: Left=" << clipSqu.left
-                         << ", Top=" << clipSqu.top
-                         << ", Right=" << clipSqu.right
-                         << ", Bottom=" << clipSqu.bottom
-                         << ", Size=" << clipSqu.right - clipSqu.left << "x" << clipSqu.bottom - clipSqu.top << endl;
-
                     // Clear the window vector and store square coordinates
                     window.clear();
                     window.push_back(clipSqu.left);
                     window.push_back(clipSqu.right);
                     window.push_back(clipSqu.top);
                     window.push_back(clipSqu.bottom);
-                } else {
-                    // Hide clipping overlay if not rectangle or square
+                }
+                else if (userChoice == ID_CLIP_CIRCLE_POINT || userChoice == ID_CLIP_CIRCLE_LINE) {
+                    HideClippingOverlay();
+                    currentMode = CIRCLE;
+                    ShowClippingOverlay(hwnd);
+
+                    RECT client;
+                    GetClientRect(hwnd, &client);
+
+                    int clientWidth = client.right - client.left - 2 * margin;
+                    int clientHeight = client.bottom - client.top - 2 * margin;
+
+                    int diameter = min(clientWidth, clientHeight);
+
+                    int left = (client.right + client.left - diameter) / 2;
+                    int top = (client.bottom + client.top - diameter) / 2;
+
+                    clipCir.left = left;
+                    clipCir.top = top;
+                    clipCir.right = left + diameter;
+                    clipCir.bottom = top + diameter;
+
+                    int centerX = (clipCir.left + clipCir.right) / 2;
+                    int centerY = (clipCir.top + clipCir.bottom) / 2;
+                    int radius = diameter / 2;
+
+                    window.clear();
+                    window.push_back(centerX);
+                    window.push_back(centerY);
+                    window.push_back(radius);
+                }
+
+                else {
+                    // Hide clipping overlay
+                    currentMode = NONE;
                     HideClippingOverlay();
                     window.clear();
                 }
@@ -327,26 +325,22 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     chosenCursor = changeCursor(userChoice);
                     cout << "Mouse cursor changed\n\n";
                 }
-                else if (userChoice == ID_WINDOW_BGCOLOR) {
-                    DeleteObject(brush);
-                    chosenBgColor = pickColor(hwnd, chosenBgColor);
-                    brush = CreateSolidBrush(chosenBgColor);
-                    InvalidateRect(hwnd, NULL, false); // Force redraw
-                }
                 else if (needPoints <= 0) {
                     // Perform drawing if needed
                     hdc = GetDC(hwnd);
-                    if (userChoice == ID_CLIP_RECT_POLYGON || userChoice == ID_FILL_CONVEX ||  userChoice == ID_FILL_NONCONVEX) {
+                    if (userChoice == ID_CLIP_RECT_POLYGON || userChoice == ID_FILL_CONVEX ||
+                        userChoice == ID_FILL_NONCONVEX || userChoice == ID_CURVE_CARDINAL_SPLINE) {
                         int numPts;
                         cout << "Enter number of points: ";
                         cin >> numPts;
                         needPoints = numPts;
-                    } else {
-                        draw(hdc, userChoice, points, chosenColor);
+                    }
+                    else {
+                        draw(hwnd, hdc, userChoice, points, chosenColor);
                     }
                     ReleaseDC(hwnd, hdc);
                 }
-            }
+
             break;
 
         case WM_SETCURSOR:
@@ -368,32 +362,36 @@ LRESULT CALLBACK OverlayProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) 
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hwnd, &ps);
 
-            HPEN hPen = CreatePen(PS_DASH, 1, RGB(255, 0, 0));  // Red Pen for Rectangle
+            HPEN hPen = CreatePen(PS_DASH, 1, RGB(255, 0, 0));  // Red dashed pen
             HPEN hOldPen = (HPEN) SelectObject(hdc, hPen);
             HBRUSH hOldBrush = (HBRUSH) SelectObject(hdc, GetStockObject(NULL_BRUSH));
 
-            // Rectangle clipping area
-            RECT rc = clipRect;
-            rc.left -= margin;
-            rc.right -= margin;
-            rc.top -= margin;
-            rc.bottom -= margin;
-
-            Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
-
-            // Square clipping area
-            RECT sq = clipSqu;
-            sq.left -= margin;
-            sq.right -= margin;
-            sq.top -= margin;
-            sq.bottom -= margin;
-
-            Rectangle(hdc, sq.left, sq.top, sq.right, sq.bottom);
+            if (currentMode == RECTANGLE) {
+                RECT rc = clipRect;
+                rc.left -= margin;
+                rc.right -= margin;
+                rc.top -= margin;
+                rc.bottom -= margin;
+                Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
+            } else if (currentMode == SQUARE) {
+                RECT sq = clipSqu;
+                sq.left -= margin;
+                sq.right -= margin;
+                sq.top -= margin;
+                sq.bottom -= margin;
+                Rectangle(hdc, sq.left, sq.top, sq.right, sq.bottom);
+            } else if (currentMode == CIRCLE) {
+                RECT cir = clipCir;
+                cir.left -= margin;
+                cir.right -= margin;
+                cir.top -= margin;
+                cir.bottom -= margin;
+                Ellipse(hdc, cir.left, cir.top, cir.right, cir.bottom);
+            }
 
             SelectObject(hdc, hOldPen);
             SelectObject(hdc, hOldBrush);
             DeleteObject(hPen);
-
             EndPaint(hwnd, &ps);
             return 0;
         }
