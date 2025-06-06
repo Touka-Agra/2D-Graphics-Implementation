@@ -93,6 +93,7 @@ bool saveFile(string chosenFile, vector<Paint> paints, bool isUser) {
             cout << "New file is added.\n";
         } else {
             cout << "Warning: Couldn't update master file.\n";
+            return false;
         }
     }
 
@@ -105,6 +106,7 @@ bool saveFile(string chosenFile, vector<Paint> paints, bool isUser) {
         }
         outFile << paint.getColor() << "\n";
     }
+    outFile.close();
     return true;
 }
 
@@ -150,6 +152,7 @@ bool loadFile(HWND hwnd, HDC hdc, string chosenFile, vector<Paint> &paints) {
 
         draw(hwnd, hdc, type, points, color);
     }
+    inFile.close();
     return true;
 }
 
