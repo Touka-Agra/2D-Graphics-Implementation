@@ -13,8 +13,8 @@ void DrawMidpointEllipse(HDC hdc, vector<Point>points, COLORREF c)
 {
     int xc = points[0].x;
     int yc = points[0].y;
-    int a = points[1].x;
-    int b = points[1].y;
+    int a = abs(xc -points[1].x);
+    int b = abs(yc-points[1].y);
 
     int x = 0;
     int y = b;
