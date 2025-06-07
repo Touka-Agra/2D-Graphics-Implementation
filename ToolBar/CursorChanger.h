@@ -19,13 +19,13 @@ void customCursorMenu() {
     cout << "3: Goose\n";
     cout << "4: Tom\n";
     cout << "5: Smile\n";
-    cout << "6: Just a Girl\n";
+    cout << "6: Just DrawSquare Girl\n";
     cout << "7: Barca\n";
     cout << "8: Gojo\n";
     cout << "9: Pusheen\n";
     cout << "10: Titan\n";
     cout << "11: Dazai\n";
-    cout << "Choose a Custom Cursor:\n";
+    cout << "Choose DrawSquare Custom Cursor:\n";
 }
 
 HCURSOR changeCursor(int userChoice) {

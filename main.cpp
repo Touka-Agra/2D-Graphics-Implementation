@@ -262,7 +262,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     int clientWidth = client.right - client.left - 2 * margin;
                     int clientHeight = client.bottom - client.top - 2 * margin;
 
-                    // Use the smallest dimension to create a square
+                    // Use the smallest dimension to create DrawSquare square
                     int squareSize = min(clientWidth, clientHeight);
 
                     // Center the square in the client area

@@ -33,6 +33,11 @@
 #include "../Shapes/Ellipse/MidpointEllipse.h"
 #include "../Clipping/Circle/PointClip.h"
 #include "../Clipping/Circle/LineClip.h"
+#include "../Filling/FillingWithHermit Curve.h"
+#include "../Filling/FillingWithBezierCurve.h"
+#include "../Shapes/Rectangle/Rectangle.h"
+#include "../Shapes/Square/Square.h"
+
 
 
 using namespace std;
@@ -107,17 +112,21 @@ void draw(HWND hwnd, HDC hdc, int userChoice, vector<Point> points, COLORREF col
 
             // ===== Square =====
         case ID_SHAPE_SQUARE_DRAW:
+            DrawSquare(hdc, points, color);
             cout << "Square has been drawn\n\n";
             break;
         case ID_SHAPE_SQUARE_FILL_HERMITE:
+            FillSquareWithHermiteCurve(hdc, points, color);
             cout << "Hermite-filled Square has been drawn\n\n";
             break;
 
             // ===== Rectangle =====
         case ID_SHAPE_RECT_DRAW:
+            DrawRectangle(hdc, points, color);
             cout << "Rectangle has been drawn\n\n";
             break;
         case ID_SHAPE_RECT_FILL_BEZIER:
+            FillRectangleWithBezierCurve(hdc, points, color);
             cout << "Bezier-filled Rectangle has been drawn\n\n";
             break;
 

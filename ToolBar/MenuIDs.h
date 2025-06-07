@@ -107,11 +107,11 @@ extern std::map<int, int> mapOfNeedPoints = {
         {ID_SHAPE_ELLIPSE_POLAR,       2},
         {ID_SHAPE_ELLIPSE_MIDPOINT,    2},
 
-        {ID_SHAPE_SQUARE_DRAW,         0},
-        {ID_SHAPE_SQUARE_FILL_HERMITE, 0},
+        {ID_SHAPE_SQUARE_DRAW,         2},
+        {ID_SHAPE_SQUARE_FILL_HERMITE, 1},
 
-        {ID_SHAPE_RECT_DRAW,           0},
-        {ID_SHAPE_RECT_FILL_BEZIER,    0},
+        {ID_SHAPE_RECT_DRAW,           3},
+        {ID_SHAPE_RECT_FILL_BEZIER,    1},
 
         {ID_CURVE_HERMITE,             0},
         {ID_CURVE_BEZIER,              4},

@@ -38,7 +38,7 @@ string getChosenFile() {
     if (savedFiles.empty()) cout << "No Files exist.";
     cout << endl;
 
-    cout << "Enter a filename or path:";
+    cout << "Enter DrawSquare filename or path:";
     string chosenFile;
     cin >> chosenFile;
     cout << endl;

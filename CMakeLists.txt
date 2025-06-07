@@ -32,6 +32,10 @@ add_executable(Project main.cpp
         Shapes/Ellipse/draw4points.h
         Clipping/Circle/LineClip.h
         Clipping/Circle/IsPointIn.h
+        Shapes/Square/Square.h
+        Shapes/Rectangle/Rectangle.h
+        "Filling/FillingWithHermit Curve.h"
+        Filling/FillingWithBezierCurve.h
 
 )
 
